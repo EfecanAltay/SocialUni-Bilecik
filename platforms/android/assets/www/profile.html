@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=none, width=device-width,height=device-height">
+    <title>SocialUni</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/page.css" rel="stylesheet">
+    <link href="css/profilePage.css" rel="stylesheet">
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="semantic/dist/semantic.min.js"></script>
+
+    <script src="js/controller.js"></script>
+
+    </head>
+  <body ng-app="myApp">
+      <div id="message" class="ui floating fluid message"  ng-controller="MessageController as message" ng-show="message.active">
+        <i class="close icon" ng-click="message.close()"></i>
+        <div class="header">{{message.data.head}}</div>
+        {{message.data.body}}
+      </div>
+      <div class="backgroundColor red"></div>
+      <img class="background" src="img/background.jpg"></img>
+      <div id="loaderIcon">
+        <i  class="spinner massive loading icon"></i>
+      </div>
+      <div class="page default" ng-init="page.initFunction()" ng-controller="PageController as page" >
+          <div class="leftMenu">
+            <div class ="menuButtonList">
+              <br>
+              <font class="menuText">SocialUni</font>
+              <img class="menuImage" src="img/Bileciklogo.png"></img>
+              <div class="menuSeparator"></div>
+              <div class="menuButton">Mesajlar</div>
+              <div class="menuButton">Profil Ayarı</div>
+              <div class="menuButton">Puanımı gör</div>
+              <div class="menuSeparator"></div>
+              <div class="menuButton">Uygulama Bilgisi</div>
+              <div class="menuButton">Çıkış</div>
+              <div class="menuButton Back" ng-click="page.CloseLeftMenu()"><i class="white  reply icon"></i></div>
+            </div>
+          </div>
+        <div class="pageHeader">
+          <div class="headerBackground transparent"></div>
+          <div class="topButton left" ng-show="page.btn1" ng-click="page.btn1function()"><i class="align justify large icon"></i></div>
+          <div class="topButton right" ng-show="page.btn2" ng-click="page.btn2function()"><i class="photo gray large icon"></i></div>
+          <font class="headerFont">{{page.header}}</font>
+        </div>
+        <div id="pageSection1">
+          <img style="width:15%; margin:1%;" src="img/logo.png"></img>
+          <div class="scrollTable">
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+          </div>
+        </div>
+        <div id="pageSection2" ng-controller="ProfileController as profile">
+          <img ng-src="{{profile.data.img}}"class="profilImageTable"></img>
+          <div class="profileInfo">
+            <ul style="list-style-type: none">
+              <li><h1><font  class="infoText">{{ profile.data.name }}&nbsp&nbsp{{ profile.data.surname }}</font></h1></li>
+              <li></br></li>
+              <li><h4><font class="infoText">{{profile.data.fakulte}}</font></h4></li>
+              <li><h6><font class="infoText">{{profile.data.bolum}}</font></h6></li>
+              <li><h6><font style="font-size:20px;" class="infoText">{{profile.data.durum}}</font></h3></li>
+            </ul>
+          </div>
+          <img ng-src="{{profile.data.kimg}}" class="cover image">
+            <div class="cover filter"></div>
+          </img>
+        </div>
+        <div id="pageSection3">
+          <img style="width:15%; margin:1%;" src="img/logo.png"></img>
+          <div class="scrollTable">
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+            <div class="news"></div>
+          </div>
+        </div>
+        <div class="bottomMenu" >
+          <div class="bottomMenuBackground"></div>
+          <div class="selectIcon home" ng-click="page.setTab(1)" ><i class="home blue large icon" ></i></div>
+          <div class="selectIcon profile active" ng-click="page.setTab(2)"><i class="user blue large icon"  ></i></div>
+          <div class="selectIcon friends" ng-click="page.setTab(3)"><i class="users blue large icon" ></i></div>
+        </div>
+      </div>
+  </body>
+</html>

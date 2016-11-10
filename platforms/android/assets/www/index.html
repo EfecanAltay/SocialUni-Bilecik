@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width,height=device-height">
+    <title>SocialUni</title>
+
+    <link rel="manifest" href="manifest.json">
+
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/page.css" rel="stylesheet">
+
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+
+    <!-- IF using Sass (run gul p sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="./js/controller.js"></script>
+
+    </head>
+  <body ng-app="myApp">
+      <div id="message" class="ui floating fluid message"  ng-controller="MessageController as message" ng-show="message.active">
+        <i class="close icon" ng-click="message.close()"></i>
+        <div class="header">{{message.data.head}}</div>
+        {{message.data.body}}
+      </div>
+      <div class="backgroundColor"></div>
+      <img id="background" src="img/background.jpg"></img>
+      <div id="loaderIcon">
+        <i  class="spinner massive loading icon"></i>
+      </div>
+      <div class="page main">
+          <ul>
+            <li><img id="logo" src="img/logo.png"></img></li></br>
+            <li id="logoText">Bilecik Şeyh Edebali Üniversitesi</br>Sosyal Paylaşım Platformu</br>2017</li></br></br>
+            <li>
+              <div id="inputList" Aling="center" ng-init="panel.init()" ng-controller="PanelController as panel">
+                  <div class="selectDots">
+                    <div id="selectDot1" class="selectDot active" ng-model="m"></div>
+                    <div id="selectDot2" class="selectDot"></div>
+                  </div>
+                  </br>
+                  <span id="panelTab1" >
+                    <ul>
+                      <li><button id="btn" class="massive fluid ui button" ng-click="panel.setTab(2)" >Giriş yap</button></li></br>
+                      <li><button id="btn" class=" massive fluid ui blue compact labeled icon button" ng-click="panel.setTab(3)"><i class="facebook icon"></i>Facebook ile Giriş yap</button></li></br>
+                      <li><button class="ui red button" onclick="setWindowLocate('register.html')" >Yada Kayıt Ol</button></li>
+                    </ul>
+                  </span>
+                  <span id="panelTab2" >
+                    <ul>
+                      <li>
+                          <div class="ui big fluid left icon input">
+                            <input  type="text" placeholder="Kullanıcı Adı" size="50px">
+                            <i class="users icon"></i>
+                          </div>
+                      </li></br>
+                      <li>
+                        <div class="ui big fluid left icon input">
+                          <input type="password" placeholder="Şifre">
+                          <i class="key icon"></i>
+                        </div>
+                      </li></br>
+                      <li> <button class="ui fluid green button" onclick="setWindowLocate('profile.html')">Giriş Yap</button></li></br>
+                      <li> <button class="ui button" ng-click="panel.setTab(1)">Back</button></li>
+                    </ul>
+                  </span>
+                  <span id="panelTab3">
+                    <ul>
+                      Facebook
+                      <li> <button class="ui back button" ng-click="panel.setTab(1)">Back</button></li>
+                    </ul>
+                  </span>
+              </div>
+            </li>
+          </ul>
+
+      </div>
+  </body>
+</html>

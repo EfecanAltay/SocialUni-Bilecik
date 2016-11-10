@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>SocialUni</title>
+
+    <link rel="manifest" href="manifest.json">
+
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/page.css" rel="stylesheet">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="js/registerControl.js"></script>
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="./js/controller.js"></script>
+    </head>
+  <body ng-app="myApp">
+    <ion-content padding="true" scroll="false">
+      <div id="message" class="ui floating fluid message" ng-init="message.close()" ng-controller="MessageController as message" ng-show="message.active">
+        <i class="close icon" ng-click="message.close()"></i>
+        <div class="header">{{message.data.head}}</div>
+        {{message.data.body}}
+      </div>
+      <div class="backgroundColor"></div>
+      <img id="background" src="img/background.jpg"></img>
+      <div id="loaderIcon">
+        <i  class="spinner massive loading icon"></i>
+      </div>
+      <div class="page" >
+        <div class="pageHeader">
+          <div class="headerBackground"></div>
+          <font class="headerFont">Kayıt</font>
+        </div>
+        <ul>
+          <li>
+            <form id="regform" name="myForm" class="ui form" method="GET" action="#">
+              <div class="field">
+                Kullanıcı adı
+                <input name="kname" type="text" placeholder="kullanıcı Adı" />
+              </div>
+                Şifre
+              <div class="field">
+                <input name="pass" type="password" placeholder="Şifre" />
+              </div>
+                Şifre Tekrarı
+              <div class="field">
+                <input name="pass" type="password" placeholder="Şifre Tekrarı" />
+              </div>
+                email
+              <div class="field">
+                <input name="mail" type="email" placeholder="email" />
+              </div>
+              <div class="field" Align="center">
+                <button class="ui fluid green button" type="submit">Kaydol</button>
+              </div>
+            </form>
+            <div ng-messages="myForm.kname.$error" style="color:red" role="alert">
+             <div ng-message="required">You did not enter a field</div>
+             <div ng-message="minlength">Your field is too short</div>
+             <div ng-message="maxlength">Your field is too long</div>
+           </div>
+            <button id="backBtn" class="ui button" onclick="setWindowLocate('index.html')">Geri</button>
+          </li>
+        </ul>
+      </div>
+    </ion-content>
+  </body>
+</html>
