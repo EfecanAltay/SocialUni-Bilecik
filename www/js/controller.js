@@ -1,7 +1,11 @@
+/* Notlar
+HammerJS reflesh bir bak..
+*/
 
 $(document).ready(function(){
   //window.addEventListener("touchstart", function(e) { e.preventDefault();}, false);
   //window.addEventListener("touchmove", function(e) { e.preventDefault();}, false);
+
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
@@ -81,6 +85,29 @@ app.controller('PageController',function(){
     this.btn2 = true;
     leftMenu = false ;
     rightMenu = false ;
+
+    this.yorumPanelKey = false;
+    this.yorumPanelData = {
+      yorumHeader:"Yorum Paneli",
+      yorumIconIndex:0,
+      yorumIcon:["comment" , "picture" ,"student"],
+      yorumStatusIndex:0,
+      yorumStatus:["building","cloud"],
+      yorums : [{
+        count: 0,
+        name : "efe",
+        text : "Çok Güzel Bir etkinlikti",
+        date : "23.12.07",
+        time : "23.00"
+      },{
+        count: 1,
+        name : "Android",
+        text : "Evet Katılıyorum",
+        date : "23.12.07",
+        time : "23.00"
+      }]
+    }
+
     this.initFunction = function(){
       leftMenu = false;
       $('#pageSection1').hide();
@@ -110,14 +137,23 @@ app.controller('PageController',function(){
       rightMenu = false;
       $('.rightMenu').hide("drop",{direction:"right"},500,function(){});
     }
-
+    //Top Menu button 1
     this.btn1function = function(){
       console.log("btn1 callback");
     };
+    //Top Menu button 2
     this.btn2function = function(){
       console.log("btn2 callback");
     };
 
+    this.closeYorumPage = function (){
+      this.yorumPanelKey = false;
+      this.yorumPanelData = "";
+    }
+    this.openYorumPage = function (data){
+      this.yorumPanelData = data;
+      this.yorumPanelKey = true ;
+    }
     this.setTab = function(index){
       switch (index) {
         case 1:
@@ -236,7 +272,111 @@ app.controller('MessageController',function(){
 
   }
   });
+  app.controller('newsController',function(){
+    this.data0={
+      dataType:"Text",
+      bodyText : "Merhabalar Ben Efecan Altay.\n Sizlere bu Sosyal Paylaşım Platformunu kurdum.",
+      bodyImage: "Resimm",
+      viewCount: 5,
+      likeCount : 3,
+      date : "07.05.2016",
+      yorumData : {
+        yorumHeader:"Merhabalar ben ...",
+        yorumIconIndex:0,
+        yorumIcon:["comment" , "picture" ,"student"],
+        yorumStatusIndex:0,
+        yorumStatus:["building","cloud"],
+        yorums : [{
+          count: 0,
+          name : "efe",
+          text : "Çok Güzel Bir etkinlikti",
+          date : "23.12.07",
+          time : "23.00"
+        },{
+          count: 1,
+          name : "Android",
+          text : "Evet Katılıyorum",
+          date : "23.12.07",
+          time : "23.00"
+        }]
+      }
+    };
+    this.data1={
+      dataType:"Text",
+      bodyText : "Merhabalar Ben Efecan Altay.\n Sizlere bu Sosyal Paylaşım Platformunu kurdum.",
+      bodyImage: "Resimm",
+      viewCount: 10,
+      likeCount : 5,
+      date : "07.05.2016",
+      yorumData : {
+        yorumHeader:"Merhabalar ben ...",
+        yorumIconIndex:1,
+        yorumIcon:["comment" , "picture" ,"student"],
+        yorumStatusIndex:0,
+        yorumStatus:["building","cloud"],
+        yorums : [{
+          count: 0,
+          name : "efe",
+          text : "Çok Güzel Bir etkinlikti",
+          date : "23.12.07",
+          time : "23.00"
+        },{
+          count: 1,
+          name : "Android",
+          text : "Evet Katılıyorum",
+          date : "23.12.07",
+          time : "23.00"
+        }]
+      }
+    };
+    this.data2={
+      dataType:"Text",
+      bodyText : "Merhabalar Ben Efecan Altay.\n Sizlere bu Sosyal Paylaşım Platformunu kurdum.",
+      bodyImage: "Resimm",
+      viewCount: 8,
+      likeCount : 3,
+      date : "07.05.2016",
+      yorumData : {
+        yorumHeader:"Merhabalar ben ...",
+        yorumIconIndex:2,
+        yorumIcon:["comment" , "picture" ,"student"],
+        yorumStatusIndex:0,
+        yorumStatus:["building","cloud"],
+        yorums : [{
+          count: 0,
+          name : "efe",
+          text : "Çok Güzel Bir etkinlikti",
+          date : "23.12.07",
+          time : "23.00"
+        },{
+          count: 1,
+          name : "Android",
+          text : "Evet Katılıyorum",
+          date : "23.12.07",
+          time : "23.00"
+        }]
+      }
+    };
 
+  })
+  app.directive('newsTextTable',function(){
+    return{
+      restrict : 'E',
+      templateUrl: 'html/newsText.html'
+    };
+  });
+  app.directive('newsPhotoTable',function(){
+    return{
+      restrict : 'E',
+      templateUrl: 'html/newsPhoto.html'
+    };
+  });
+  app.directive('newsActivityTable',function(){
+    return{
+      restrict : 'E',
+      templateUrl: 'html/newsActivity.html'
+    };
+  });
 })();
 
 var wrongPass={

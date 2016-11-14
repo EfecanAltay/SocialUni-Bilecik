@@ -2,26 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=none, width=device-width,height=device-height">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,  width=device-width,height=device-height">
     <title>SocialUni</title>
 
     <link rel="manifest" href="manifest.json">
 
     <link href="css/style.css" rel="stylesheet">
     <link href="css/page.css" rel="stylesheet">
+    <link href="css/news.css" rel="stylesheet">
     <link href="css/profilePage.css" rel="stylesheet">
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+
 
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <script src="semantic/dist/semantic.min.js"></script>
 
-    <script src="js/controller.js"></script>
+    <script type="text/javascript" src="js/controller.js"></script>
 
     </head>
   <body ng-app="myApp">
@@ -47,7 +48,7 @@
               <div class="menuButton">Puanımı gör</div>
               <div class="menuSeparator"></div>
               <div class="menuButton">Uygulama Bilgisi</div>
-              <div class="menuButton">Çıkış</div>
+              <div class="menuButton" onclick="setWindowLocate('index.html')">Çıkış</div>
               <div class="menuButton Back" ng-click="page.CloseLeftMenu()"><i class="white remove icon"></i></div>
             </div>
           </div>
@@ -62,11 +63,10 @@
               <div class="menuButton">Paylaşımları Süz</div>
               <div class="menuSeparator"></div>
               <div class="menuButton">Uygulama Bilgisi</div>
-              <div class="menuButton">Çıkış</div>
+              <div class="menuButton" onclick="setWindowLocate('index.html')">Çıkış</div>
               <div class="menuButton Back" ng-click="page.CloseRightMenu()"><i class="white remove icon"></i></div>
             </div>
           </div>
-          <img style="width:15%; margin:1%; z-index:9999;" src="img/logo.png"></img>
         <div class="pageHeader">
           <div class="headerBackground transparent"></div>
           <div class="topButton left" ng-show="page.btn1" ng-click="page.btn1function()"><i id="pbtn1" class="align justify large icon"></i></div>
@@ -74,20 +74,14 @@
           <font class="headerFont">{{page.header}}</font>
         </div>
         <div id="pageSection1">
-          <div class="scrollTable">
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
+          <div id="refleshButton">
+            <i  class="large undo icon"></i>
+          </div>
+          <div id="scrolltable" class="scrollTable" ng-controller="newsController as news">
+            <news-text-table></news-text-table>
+            <news-photo-table></news-photo-table>
+            <news-text-table></news-text-table>
+            <news-activity-table></news-activity-table>
           </div>
         </div>
         <div id="pageSection2" ng-controller="ProfileController as profile">
@@ -106,6 +100,9 @@
           </img>
         </div>
         <div id="pageSection3">
+          <div id="refleshButton">
+            <i  class="large undo icon"></i>
+          </div>
           <div class="scrollTable">
             <div class="friendTable">
               <img class="ftPhoto" src="img/prof.jpg"></img>
@@ -143,6 +140,26 @@
               <img class="ftPhoto" src="img/prof.jpg"></img>
               <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
             </div>
+          </div>
+        </div>
+        <div class="yorumPanel" ng-show="page.yorumPanelKey" >
+          <div class="yorumPanelHeader">
+            <i id="yorumHeaderIcon" class="big blue icon" ng-class="page.yorumPanelData.yorumIcon[page.yorumPanelData.yorumIconIndex]"></i>
+            <div id="yorumHeaderText" Align="center"><font>{{page.yorumPanelData.yorumHeader}}</font></div>
+            <i id="yorumStatus" class="big icon" ng-class="page.yorumPanelData.yorumStatus[page.yorumPanelData.yorumStatusIndex]"></i>
+          </div>
+          <div class="scrollTable yorum">
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/prof.jpg"></img>
+              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+            </div>
+          </div>
+          <div class="yorumPanelFooter">
+            <div class="ui fluid  action input">
+              <input type="text" placeholder="Yorum yap">
+              <div class="ui green button">Gönder</div>
+            </div></br>
+            <button class="ui fluid button" ng-click="page.closeYorumPage()">Geri</button>
           </div>
         </div>
         <div class="bottomMenu" >

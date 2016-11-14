@@ -158,7 +158,7 @@
   left: 0px;
   width: 80%;
   height: 100%;
-  opacity: 0.9;
+  opacity: 1;
   border-right: 5px solid #161d2a;
   z-index: 9999999;
 }
@@ -169,7 +169,7 @@
   right: 0px;
   width: 80%;
   height: 100%;
-  opacity: 0.9;
+  opacity: 1;
   border-right: 5px solid #161d2a;
   z-index: 9999999;
 }
@@ -230,11 +230,8 @@
   overflow-scrolling: auto;
   -webkit-overflow-scrolling: touch
 }
-.news{
-  width: 80%;
-  height: 100px;
-  background-color: blue;
-  margin: 5% auto;
+.scrollTable.yorum{
+  padding-bottom: 33%;
 }
 .friendTable{
   width: 90%;
@@ -258,4 +255,77 @@
   text-align: left;
   padding: 2%;
   font-size: 20px;
+}
+#refleshButton{
+  position: fixed;
+  bottom: 80px;
+  right: 8px;
+  background-color: #161d2a;
+  border-radius: 90px;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  color:white;
+  z-index: 999;
+  border:2px solid black;
+}
+#refleshButton:active{
+  width: 35px;
+  height: 35px;
+  padding: 3px;
+  color:white;
+  z-index: 999;
+  border:2px solid black;
+}
+.yorumPanel{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #161d2a;
+  z-index: 999999;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+.yorumPanelHeader{
+  position: relative;
+  background-color: #161d2a;
+  width: 100%;
+  height: 10%;
+  margin: 0px auto;
+  border-bottom: 2px solid gray ;
+  z-index: 9;
+}
+.yorumPanelFooter{
+  position: relative;
+  background-color: #161d2a;
+  top: 70%;
+  width: 100%;
+  height: 20%;
+  margin: 0px auto;
+  padding: 5%;
+  padding-top: 5%;
+  border-top: 2px solid gray ;
+  z-index: 9;
+  padding: 4%;
+}
+#yorumHeaderIcon{
+  margin-left: 10%;
+  float: left;
+  margin-top: 5%;
+}
+#yorumHeaderText{
+  width: 50%;
+  margin: 0px auto;
+  font-size: 20px;
+  color : white;
+  font-weight: bold;
+  padding-top: 6%
+}
+#yorumStatus{
+  margin-top:-5%;
+  margin-right: 10%;
+  float: right;
+  color: gray;
 }
