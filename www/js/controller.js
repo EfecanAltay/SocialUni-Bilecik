@@ -87,6 +87,8 @@ app.controller('PageController',function(){
     rightMenu = false ;
 
     this.yorumPanelKey = false;
+    this.searchPanelKey = false;
+
     this.yorumPanelData = {
       yorumHeader:"Yorum Paneli",
       yorumIconIndex:0,
@@ -137,6 +139,13 @@ app.controller('PageController',function(){
       rightMenu = false;
       $('.rightMenu').hide("drop",{direction:"right"},500,function(){});
     }
+    this.OpenSearchPanel = function(){
+      this.searchPanelKey = true ;
+    }
+    this.CloseSearchPanel = function(){
+      this.searchPanelKey = false ;
+    }
+
     //Top Menu button 1
     this.btn1function = function(){
       console.log("btn1 callback");
@@ -213,6 +222,7 @@ app.controller('PageController',function(){
         this.btn2function = function(){
 
         }
+
         this.index = 2;
           break;
         case 3:
@@ -234,8 +244,11 @@ app.controller('PageController',function(){
 
         this.btn1 = false ;
         this.btn2 = true ;
-        this.btn1function = function(){}
-        this.btn2function = function(){}
+        this.btn1function = function(){};
+        this.btn2function =  function(){
+          console.log("buton 2");
+          this.OpenSearchPanel();
+        };
 
         this.index = 3 ;
         default:
@@ -377,6 +390,13 @@ app.controller('MessageController',function(){
       templateUrl: 'html/newsActivity.html'
     };
   });
+  app.directive('yorumPanel',function(){
+    return{
+      restrict : 'E',
+      templateUrl: 'html/YorumPanel.html'
+    };
+  });
+
 })();
 
 var wrongPass={
@@ -396,3 +416,5 @@ var profile ={
   img: "img/prof.jpg",
   kimg:"img/kres.jpg"
 }
+
+//Rayu11

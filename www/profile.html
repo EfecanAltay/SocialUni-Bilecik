@@ -13,6 +13,7 @@
     <link href="css/profilePage.css" rel="stylesheet">
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/message.css" rel="stylesheet" >
 
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
@@ -103,7 +104,18 @@
           <div id="refleshButton">
             <i  class="large undo icon"></i>
           </div>
+          <div class="searchPanel" ng-show="page.searchPanelKey">
+            <div class="searchPanelBg" ></div>
+            <div id="searchBar" class="ui massive icon input">
+              <input type="text" placeholder="Arkadaş Ara...">
+              <i class="search icon"></i>
+            </div>
+            <div class="SearchCloseBtn" Align="center">
+              <i class="remove circle big outline icon" ng-click="page.CloseSearchPanel()"></i>
+            </div>
+          </div>
           <div class="scrollTable">
+              <!-- Arkadaş Listesi !-->
             <div class="friendTable">
               <img class="ftPhoto" src="img/prof.jpg"></img>
               <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
@@ -140,28 +152,10 @@
               <img class="ftPhoto" src="img/prof.jpg"></img>
               <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
             </div>
+              <!-- Arkadaş Listesi !-->
           </div>
         </div>
-        <div class="yorumPanel" ng-show="page.yorumPanelKey" >
-          <div class="yorumPanelHeader">
-            <i id="yorumHeaderIcon" class="big blue icon" ng-class="page.yorumPanelData.yorumIcon[page.yorumPanelData.yorumIconIndex]"></i>
-            <div id="yorumHeaderText" Align="center"><font>{{page.yorumPanelData.yorumHeader}}</font></div>
-            <i id="yorumStatus" class="big icon" ng-class="page.yorumPanelData.yorumStatus[page.yorumPanelData.yorumStatusIndex]"></i>
-          </div>
-          <div class="scrollTable yorum">
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-          </div>
-          <div class="yorumPanelFooter">
-            <div class="ui fluid  action input">
-              <input type="text" placeholder="Yorum yap">
-              <div class="ui green button">Gönder</div>
-            </div></br>
-            <button class="ui fluid button" ng-click="page.closeYorumPage()">Geri</button>
-          </div>
-        </div>
+        <Yorum-Panel></Yorum-Panel>
         <div class="bottomMenu" >
           <div class="bottomMenuBackground"></div>
           <div class="selectIcon home" ng-click="page.setTab(1)" ><i class="home blue large icon" ></i></div>
