@@ -13,10 +13,12 @@
     <link href="css/profilePage.css" rel="stylesheet">
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/message.css" rel="stylesheet" >
 
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+
 
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <script src="semantic/dist/semantic.min.js"></script>
@@ -47,7 +49,7 @@
               <div class="menuButton">Puanımı gör</div>
               <div class="menuSeparator"></div>
               <div class="menuButton">Uygulama Bilgisi</div>
-              <div class="menuButton">Çıkış</div>
+              <div class="menuButton" onclick="setWindowLocate('index.html')">Çıkış</div>
               <div class="menuButton Back" ng-click="page.CloseLeftMenu()"><i class="white remove icon"></i></div>
             </div>
           </div>
@@ -62,7 +64,7 @@
               <div class="menuButton">Paylaşımları Süz</div>
               <div class="menuSeparator"></div>
               <div class="menuButton">Uygulama Bilgisi</div>
-              <div class="menuButton">Çıkış</div>
+              <div class="menuButton" onclick="setWindowLocate('index.html')">Çıkış</div>
               <div class="menuButton Back" ng-click="page.CloseRightMenu()"><i class="white remove icon"></i></div>
             </div>
           </div>
@@ -73,10 +75,14 @@
           <font class="headerFont">{{page.header}}</font>
         </div>
         <div id="pageSection1">
-          <div class="scrollTable" ng-controller="newsController as news">
+          <div id="refleshButton">
+            <i  class="large undo icon"></i>
+          </div>
+          <div id="scrolltable" class="scrollTable" ng-controller="newsController as news">
             <news-text-table></news-text-table>
             <news-photo-table></news-photo-table>
             <news-text-table></news-text-table>
+            <news-activity-table></news-activity-table>
           </div>
         </div>
         <div id="pageSection2" ng-controller="ProfileController as profile">
@@ -95,45 +101,61 @@
           </img>
         </div>
         <div id="pageSection3">
-          <div class="scrollTable">
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+          <div id="refleshButton">
+            <i  class="large undo icon"></i>
+          </div>
+          <div class="searchPanel" ng-show="page.searchPanelKey">
+            <div class="searchPanelBg" ></div>
+            <div id="searchBar" class="ui massive icon input">
+              <input type="text" placeholder="Arkadaş Ara...">
+              <i class="search icon"></i>
             </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/ic_launcher.png"></img>
-              <div class="ftInfo">Android</br></br>Sistem müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/ic_launcher.png"></img>
-              <div class="ftInfo">Android</br></br>Sistem müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/ic_launcher.png"></img>
-              <div class="ftInfo">Android</br></br>Sistem müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+            <div class="SearchCloseBtn" Align="center">
+              <i class="remove circle big outline icon" ng-click="page.CloseSearchPanel()"></i>
             </div>
           </div>
+          <div class="scrollTable">
+              <!-- Arkadaş Listesi !-->
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/prof.jpg"></img>
+              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+            </div>
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/ic_launcher.png"></img>
+              <div class="ftInfo">Android</br></br>Sistem müh.</div>
+            </div>
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/prof.jpg"></img>
+              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+            </div>
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/ic_launcher.png"></img>
+              <div class="ftInfo">Android</br></br>Sistem müh.</div>
+            </div>
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/prof.jpg"></img>
+              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+            </div>
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/ic_launcher.png"></img>
+              <div class="ftInfo">Android</br></br>Sistem müh.</div>
+            </div>
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/prof.jpg"></img>
+              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+            </div>
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/prof.jpg"></img>
+              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+            </div>
+            <div class="friendTable">
+              <img class="ftPhoto" src="img/prof.jpg"></img>
+              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+            </div>
+              <!-- Arkadaş Listesi !-->
+          </div>
         </div>
+        <Yorum-Panel></Yorum-Panel>
         <div class="bottomMenu" >
           <div class="bottomMenuBackground"></div>
           <div class="selectIcon home" ng-click="page.setTab(1)" ><i class="home blue large icon" ></i></div>

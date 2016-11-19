@@ -1,0 +1,30 @@
+<div class="newsTable">
+  <div class="newsHeader">
+    <i id="newsHeaderIcon" class="big blue student icon"></i>
+    <font id="newsHeaderFont" >Etkinlik</font>
+    <i id="newsHeaderStatusIcon" class="big building icon"></i>
+  </div>
+  <div class="newsBody">
+    <div class="newPhoto activity">
+      <div class="newPhotoInfoTable">
+        <img class="newProfImg small" src="img/prof.jpg"></img>
+        <font class="newBodyText small" >{{news.data2.bodyText}}</font>
+      </div>
+    </div>
+  </div>
+  <div class="newsFooter">
+    <div class="newsInfo">
+      <div class="newsLike">
+        <i class="eye large icon"></i>
+        <font id="viewCount">{{news.data2.viewCount}} &nbsp</font>
+        <i class="thumbs outline up large icon"></i>
+        <font id="likeCount">{{news.data2.likeCount}}</font>
+      </div>
+      <div class="newsDate">{{news.data2.date}}</div>
+    </div>
+    <div id="newsFooterBtns" class="ui fluid buttons">
+      <button class="ui button">Katılıyorum</button>
+      <button class="ui button" ng-click="page.openYorumPage(news.data2.yorumData)">Yorum Yap</button>
+    </div>
+  </div>
+</div>

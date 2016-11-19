@@ -1,8 +1,8 @@
 .newsTable{
       width:80%;
+      border-radius: 8px;
       background-color: white;
       margin: 5% auto;
-      border-radius: 8px;
 }
 #newsHeaderIcon{
   float:left;
@@ -48,16 +48,44 @@
   float: right;
   padding: 3%;
 }
+.newPhotoTable{
+  width: 100%;
+  height: 100%;
+}
 .newProfImg{
   width: 50%;
   border: 3px solid black;
   border-radius: 5px;
 }
-.newProfImg:hover{
-  width: 50%;
-  border: 3px solid black;
+.newProfImg.small{
+  width: 30%;
+  border: 3px solid blue;
   border-radius: 5px;
-  opacity: 0.6;
+  float: right;
+}
+.newPhoto{
+  width: 100%;
+}
+.newPhoto.activity{
+  background-image: url("../img/kres.jpg");
+  background-size:cover;
+  background-origin: content-box;
+  height: 250px;
+}
+.newPhotoInfoTable{
+  position: relative;
+  width: 100%;
+  height: 40%;
+  top :60%;
+  background-color: black;
+  opacity: 1;
+  padding: 5%;
+}
+.newBodyText.small{
+  float:left;
+  color:white;
+  font-size: 10px;
+  width: 60%;
 }
 #newsFooterBtns{
   width: 100%;

@@ -6,6 +6,47 @@ $(document).ready(function(){
   //window.addEventListener("touchstart", function(e) { e.preventDefault();}, false);
   //window.addEventListener("touchmove", function(e) { e.preventDefault();}, false);
 
+  $('.ui.dropdown').dropdown({
+ onChange: function() {
+   if($('#shareType').text()[0] == "A")
+   {
+     console.log("Okul içi");
+     $('.shareTPI').addClass('users');
+     $('.shareTPI').removeClass('info');
+     $('.shareTPI').removeClass('building');
+     $('.shareTPI').removeClass('world');
+     $('.shareTPI').removeClass('university');
+
+   }
+   else if($('#shareType').text()[0] == 'B')
+   {
+     console.log("Fa içi");
+     $('.shareTPI').addClass('building');
+     $('.shareTPI').removeClass('info');
+     $('.shareTPI').removeClass('users');
+     $('.shareTPI').removeClass('world');
+     $('.shareTPI').removeClass('university');
+   }
+   else if($('#shareType').text()[0] == 'F')
+   {
+     console.log("bö içi");
+     $('.shareTPI').addClass('university');
+     $('.shareTPI').removeClass('info');
+     $('.shareTPI').removeClass('building');
+     $('.shareTPI').removeClass('users');
+     $('.shareTPI').removeClass('world');
+   }
+   else if($('#shareType').text()[0] == 'Ü')
+   {
+     console.log("bö içi");
+     $('.shareTPI').addClass('world');
+     $('.shareTPI').removeClass('info');
+     $('.shareTPI').removeClass('building');
+     $('.shareTPI').removeClass('users');
+     $('.shareTPI').removeClass('university');
+   }
+ }
+});
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
@@ -88,27 +129,9 @@ app.controller('PageController',function(){
 
     this.yorumPanelKey = false;
     this.searchPanelKey = false;
+    this.sharePanelKey = false ;
 
-    this.yorumPanelData = {
-      yorumHeader:"Yorum Paneli",
-      yorumIconIndex:0,
-      yorumIcon:["comment" , "picture" ,"student"],
-      yorumStatusIndex:0,
-      yorumStatus:["building","cloud"],
-      yorums : [{
-        count: 0,
-        name : "efe",
-        text : "Çok Güzel Bir etkinlikti",
-        date : "23.12.07",
-        time : "23.00"
-      },{
-        count: 1,
-        name : "Android",
-        text : "Evet Katılıyorum",
-        date : "23.12.07",
-        time : "23.00"
-      }]
-    }
+    this.yorumPanelData = "";
 
     this.initFunction = function(){
       leftMenu = false;
@@ -116,7 +139,8 @@ app.controller('PageController',function(){
       $('#pageSection3').hide();
       $('.leftMenu').hide();
       $('.rightMenu').hide();
-
+      this.CloseSharePage();
+      this.CloseYorumPage();
       this.btn1function = function(){
         this.OpenLeftMenu()
       }
@@ -145,6 +169,21 @@ app.controller('PageController',function(){
     this.CloseSearchPanel = function(){
       this.searchPanelKey = false ;
     }
+    this.OpenSharePage = function(){
+      this.sharePanelKey = true ;
+      $('.rightMenu').hide();
+    }
+    this.CloseSharePage = function(){
+      this.sharePanelKey = false ;
+      $('.shareTPI').addClass('info');
+      $('.shareTPI').removeClass('university');
+      $('.shareTPI').removeClass('building');
+      $('.shareTPI').removeClass('users');
+      $('.shareTPI').removeClass('world');
+      $('#shareType').text("Paylaşım Kitlesini Seç...");
+      $('.shareText').val("");
+
+    }
 
     //Top Menu button 1
     this.btn1function = function(){
@@ -155,13 +194,32 @@ app.controller('PageController',function(){
       console.log("btn2 callback");
     };
 
-    this.closeYorumPage = function (){
+    this.CloseYorumPage = function (){
+      $('#yorumPanel').text('');
       this.yorumPanelKey = false;
       this.yorumPanelData = "";
     }
-    this.openYorumPage = function (data){
-      this.yorumPanelData = data;
-      this.yorumPanelKey = true ;
+    this.OpenYorumPage = function (data){
+      if(this.yorumPanelKey == false){
+        $('#yorumPanel').text('');
+        this.yorumPanelData = data;
+        this.yorumPanelKey = true ;
+      }
+    }
+    this.showYorum = function(data){
+      $('#yorumPanel').text('');
+      console.log("hello");
+      var i ;
+      if(data){
+        for(i = 0 ; i < data.length ; i++){
+          var yorum = data[i];
+          if(yorum.your){
+            $('#yorumPanel').append('<div class="msgTable me"><div class="msgProfName">'+yorum.user.name+'</div><div class="msgBody">'+yorum.text.toString() +'</div></div>');
+          }else{
+            $('#yorumPanel').append('<div class="msgTable"><img class="msgPhoto" src="'+yorum.user.profImg+'" ></img><div class="msgProfName">'+yorum.user.name+'</div><div class="msgBody">'+ yorum.text.toString() +'</div></div>');
+          }
+        }
+      }
     }
     this.setTab = function(index){
       switch (index) {
@@ -249,7 +307,6 @@ app.controller('PageController',function(){
           console.log("buton 2");
           this.OpenSearchPanel();
         };
-
         this.index = 3 ;
         default:
 
@@ -286,6 +343,7 @@ app.controller('MessageController',function(){
   }
   });
   app.controller('newsController',function(){
+
     this.data0={
       dataType:"Text",
       bodyText : "Merhabalar Ben Efecan Altay.\n Sizlere bu Sosyal Paylaşım Platformunu kurdum.",
@@ -299,20 +357,42 @@ app.controller('MessageController',function(){
         yorumIcon:["comment" , "picture" ,"student"],
         yorumStatusIndex:0,
         yorumStatus:["building","cloud"],
-        yorums : [{
+        yorums : [
+          {
           count: 0,
-          name : "efe",
+          your : true,
+          user : {
+                  name: "Efecan Altay",
+                  profImg : "img/prof.jpg"
+                 },
           text : "Çok Güzel Bir etkinlikti",
           date : "23.12.07",
           time : "23.00"
-        },{
+          },
+          {
           count: 1,
-          name : "Android",
+          your : false,
+          user : {
+                  name: "Android",
+                  profImg : "img/ic_launcher.png"
+                  },
           text : "Evet Katılıyorum",
           date : "23.12.07",
           time : "23.00"
-        }]
-      }
+          },
+          {
+          count: 2,
+          your : false,
+          user : {
+                  name: "Bilecik",
+                  profImg : "img/bileciklogo.jpg"
+                  },
+          text : "Bende Evet Katılıyorum",
+          date : "23.12.07",
+          time : "23.00"
+          }
+      ]
+    }
     };
     this.data1={
       dataType:"Text",
@@ -329,13 +409,21 @@ app.controller('MessageController',function(){
         yorumStatus:["building","cloud"],
         yorums : [{
           count: 0,
-          name : "efe",
+          your : true,
+          user : {
+              name: "Efecan Altay",
+              profImg : "img/prof.jpg"
+          },
           text : "Çok Güzel Bir etkinlikti",
           date : "23.12.07",
           time : "23.00"
-        },{
+          },{
           count: 1,
-          name : "Android",
+          your : false,
+          user : {
+              name: "Efecan Altay",
+              profImg : "img/prof.jpg"
+          },
           text : "Evet Katılıyorum",
           date : "23.12.07",
           time : "23.00"
@@ -357,13 +445,21 @@ app.controller('MessageController',function(){
         yorumStatus:["building","cloud"],
         yorums : [{
           count: 0,
-          name : "efe",
+          your : true,
+          user : {
+              name: "Efecan Altay",
+              profImg : "img/prof.jpg"
+          },
           text : "Çok Güzel Bir etkinlikti",
           date : "23.12.07",
           time : "23.00"
-        },{
+          },{
           count: 1,
-          name : "Android",
+          your : false,
+          user : {
+              name: "Efecan Altay",
+              profImg : "img/prof.jpg"
+          },
           text : "Evet Katılıyorum",
           date : "23.12.07",
           time : "23.00"
@@ -396,9 +492,7 @@ app.controller('MessageController',function(){
       templateUrl: 'html/YorumPanel.html'
     };
   });
-
 })();
-
 var wrongPass={
   head :"Hatalı Giriş",
   body : "Kullanıcı Adı veya Şifresi Hatalı"

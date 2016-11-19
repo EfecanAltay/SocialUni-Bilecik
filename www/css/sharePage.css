@@ -1,0 +1,32 @@
+.sharePage{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #161d2a;
+  z-index: 9999;
+  color : white;
+}
+.shareText{
+  width: 100%;
+  margin: 10px auto;
+  align: center;
+  border-radius: 20px;
+  padding: 20px;
+  resize: none;
+  background-color: gray;
+}
+.shareTable{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  padding: 6%;
+  align:center;
+}
+.shareButton{
+  top : 10%;
+  border-bottom: 0px;
+}
+.shareBackButton{
+  position: fixed;
+  top : 15%;
+}

@@ -5,23 +5,17 @@
     <i id="yorumStatus" class="big icon" ng-class="page.yorumPanelData.yorumStatus[page.yorumPanelData.yorumStatusIndex]"></i>
   </div>
   <div class="scrollTable yorum">
+    <span id="yorumPanel" >
     <!-- Yorum Mesajları !-->
-    <div class="msgTable">
-      <img class="msgPhoto" src="img/prof.jpg"></img>
-      <div class="msgProfName">Efecan Altay</div>
-      <div class="msgBody">Merhabalar dkad d adpa kpakd jad dka kpodk pakdpk</div>
-    </div>
-    <div class="msgTable me">
-      <div class="msgProfName">Efecan Altay</div>
-      <div class="msgBody">Merhabalar dkad d adpa kpakd jad dka kpodk pakdpk</div>
-    </div>
+    {{page.showYorum(page.yorumPanelData.yorums)}}
     <!-- Yorum Mesajları !-->
+    </span>
   </div>
   <div class="yorumPanelFooter">
     <div class="ui fluid  action input">
       <input type="text" placeholder="Yorum yap">
       <div class="ui green button">Gönder</div>
     </div></br>
-    <button class="ui fluid button" ng-click="page.closeYorumPage()">Geri</button>
+    <button class="ui fluid button" ng-click="page.CloseYorumPage()">Geri</button>
   </div>
 </div>

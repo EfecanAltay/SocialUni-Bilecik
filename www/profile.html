@@ -10,6 +10,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/page.css" rel="stylesheet">
     <link href="css/news.css" rel="stylesheet">
+    <link href="css/sharePage.css" rel="stylesheet">
     <link href="css/profilePage.css" rel="stylesheet">
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
@@ -24,6 +25,8 @@
     <script src="semantic/dist/semantic.min.js"></script>
 
     <script type="text/javascript" src="js/controller.js"></script>
+
+    <script type="text/javascript" src="js/login.js"></script>
 
     </head>
   <body ng-app="myApp">
@@ -54,12 +57,12 @@
             </div>
           </div>
           <div class="rightMenu">
-            <div class ="menuButtonList">
+            <div class ="menuButtonList" >
               <br>
               <font class="menuText">SocialUni</font>
               <img class="menuImage" src="img/Bileciklogo.png"></img>
               <div class="menuSeparator"></div>
-              <div class="menuButton">Düşünceni Paylaş</div>
+              <div class="menuButton" ng-click="page.OpenSharePage()">Düşünceni Paylaş</div>
               <div class="menuButton">Etkinlik Oluştur</div>
               <div class="menuButton">Paylaşımları Süz</div>
               <div class="menuSeparator"></div>
@@ -75,6 +78,27 @@
           <font class="headerFont">{{page.header}}</font>
         </div>
         <div id="pageSection1">
+          <div class="sharePage" ng-show="page.sharePanelKey" >
+            <div class="shareTable" >
+              <font style="font-size:50px;border-bottom :2px solid white;padding-bottom:2%;">Paylaş</font></br></br></br>
+              <div class="field">
+                <div class="shareType ui fluid selection dropdown labeled icon button">
+                  <i class="shareTPI info  icon"></i>
+                  <span id="shareType" class="text">Paylaşım Kitlesini Seç...</span>
+                  <div class="menu" style="max-height:200px;height:200px;">
+                    <div class="item">Arkadaşlar Arası Paylaş</div>
+                    <div class="item">Bölüm İçi Paylaş</div>
+                    <div class="item">Fakülte İçi Paylaş</div>
+                    <div class="item">Üniversite İçi Paylaş</div>
+                  </div>
+                </div></br>
+                <label>Ne Düşünüyorsun?</label>
+                <textarea class="shareText" rows="6" cols="45" placeholder="Düşünceni yaz.."></textarea>
+              </div>
+              <button class="shareButton blue fluid ui button">PAYLAŞ</button>
+              <button class="shareBackButton fluid ui button" ng-click="page.CloseSharePage()">İptal</button>
+            </div>
+          </div>
           <div id="refleshButton">
             <i  class="large undo icon"></i>
           </div>
