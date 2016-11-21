@@ -22,7 +22,8 @@
 
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <script src="semantic/dist/semantic.min.js"></script>
-    <script src="./js/controller.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/register.js"></script>
     </head>
   <body ng-app="myApp">
     <ion-content padding="true" scroll="false">
@@ -43,32 +44,29 @@
         </div>
         <ul>
           <li>
-            <form id="regform" name="myForm" class="ui form" method="GET" action="#">
+            <form class="ui form">
               <div class="field">
                 Kullanıcı adı
-                <input name="kname" type="text" placeholder="kullanıcı Adı" />
+                <input id="kname" name="kname" type="text" placeholder="Kullanıcı Adı.." required/>
               </div>
                 Şifre
               <div class="field">
-                <input name="pass" type="password" placeholder="Şifre" />
+                <input id="pass" name="pass" type="password" placeholder="Şifre.." required/>
               </div>
                 Şifre Tekrarı
               <div class="field">
-                <input name="pass" type="password" placeholder="Şifre Tekrarı" />
+                <input id="pass2" name="pass2" type="password" placeholder="Şifre Tekrarı.." required/>
               </div>
-                email
+                Email
               <div class="field">
-                <input name="mail" type="email" placeholder="email" />
+                <input id="mail" name="mail" type="email" placeholder="Email.." required/>
               </div>
               <div class="field" Align="center">
-                <button class="ui fluid green button" type="submit">Kaydol</button>
+                <button class="ui fluid green button" onclick="register()" >Kaydol</button>
               </div>
-            </form>
-            <div ng-messages="myForm.kname.$error" style="color:red" role="alert">
-             <div ng-message="required">You did not enter a field</div>
-             <div ng-message="minlength">Your field is too short</div>
-             <div ng-message="maxlength">Your field is too long</div>
+            <div style="color:red">
            </div>
+          </form>
             <button id="backBtn" class="ui button" onclick="setWindowLocate('index.html')">Geri</button>
           </li>
         </ul>
