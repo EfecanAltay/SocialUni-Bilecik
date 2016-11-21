@@ -10,7 +10,6 @@ $(document).ready(function(){
  onChange: function() {
    if($('#shareType').text()[0] == "A")
    {
-     console.log("Okul içi");
      $('.shareTPI').addClass('users');
      $('.shareTPI').removeClass('info');
      $('.shareTPI').removeClass('building');
@@ -20,7 +19,6 @@ $(document).ready(function(){
    }
    else if($('#shareType').text()[0] == 'B')
    {
-     console.log("Fa içi");
      $('.shareTPI').addClass('building');
      $('.shareTPI').removeClass('info');
      $('.shareTPI').removeClass('users');
@@ -29,7 +27,6 @@ $(document).ready(function(){
    }
    else if($('#shareType').text()[0] == 'F')
    {
-     console.log("bö içi");
      $('.shareTPI').addClass('university');
      $('.shareTPI').removeClass('info');
      $('.shareTPI').removeClass('building');
@@ -38,7 +35,6 @@ $(document).ready(function(){
    }
    else if($('#shareType').text()[0] == 'Ü')
    {
-     console.log("bö içi");
      $('.shareTPI').addClass('world');
      $('.shareTPI').removeClass('info');
      $('.shareTPI').removeClass('building');
@@ -208,7 +204,6 @@ app.controller('PageController',function(){
     }
     this.showYorum = function(data){
       $('#yorumPanel').text('');
-      console.log("hello");
       var i ;
       if(data){
         for(i = 0 ; i < data.length ; i++){
