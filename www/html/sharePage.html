@@ -1,0 +1,60 @@
+<script>
+$('.ui.dropdown').dropdown({
+onChange: function() {
+ if($('#shareType').text()[0] == "A")
+ {
+   $('.shareTPI').addClass('users');
+   $('.shareTPI').removeClass('info');
+   $('.shareTPI').removeClass('building');
+   $('.shareTPI').removeClass('world');
+   $('.shareTPI').removeClass('university');
+
+ }
+ else if($('#shareType').text()[0] == 'B')
+ {
+   $('.shareTPI').addClass('building');
+   $('.shareTPI').removeClass('info');
+   $('.shareTPI').removeClass('users');
+   $('.shareTPI').removeClass('world');
+   $('.shareTPI').removeClass('university');
+ }
+ else if($('#shareType').text()[0] == 'F')
+ {
+   $('.shareTPI').addClass('university');
+   $('.shareTPI').removeClass('info');
+   $('.shareTPI').removeClass('building');
+   $('.shareTPI').removeClass('users');
+   $('.shareTPI').removeClass('world');
+ }
+ else if($('#shareType').text()[0] == 'Ü')
+ {
+   $('.shareTPI').addClass('world');
+   $('.shareTPI').removeClass('info');
+   $('.shareTPI').removeClass('building');
+   $('.shareTPI').removeClass('users');
+   $('.shareTPI').removeClass('university');
+ }
+}
+});
+</script>
+<div class="sharePage" ng-show="page.sharePanelKey" >
+  <div class="shareTable" >
+    <font style="font-size:50px;border-bottom :2px solid white;padding-bottom:2%;">Paylaş</font></br></br></br>
+    <div class="field">
+      <div class="shareType ui fluid selection dropdown labeled icon button">
+        <i class="shareTPI info  icon"></i>
+        <span id="shareType" class="text">Paylaşım Kitlesini Seç...</span>
+        <div class="menu" style="max-height:200px;height:200px;">
+          <div class="item">Arkadaşlar Arası Paylaş</div>
+          <div class="item">Bölüm İçi Paylaş</div>
+          <div class="item">Fakülte İçi Paylaş</div>
+          <div class="item">Üniversite İçi Paylaş</div>
+        </div>
+      </div></br>
+      <label>Ne Düşünüyorsun?</label>
+      <textarea class="shareText" rows="6" cols="45" placeholder="Düşünceni yaz.."></textarea>
+    </div>
+    <button class="shareButton blue fluid ui button">PAYLAŞ</button>
+    <button class="shareBackButton fluid ui button" ng-click="page.CloseSharePage()">İptal</button>
+  </div>
+</div>

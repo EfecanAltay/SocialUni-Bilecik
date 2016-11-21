@@ -6,9 +6,14 @@
   </div>
   <div class="newsBody">
     <div class="newPhoto activity">
-      <div class="newPhotoInfoTable">
-        <img class="newProfImg small" src="img/prof.jpg"></img>
-        <font class="newBodyText small" >{{news.data2.bodyText}}</font>
+      <div class="newActivityHeader">
+        <div class="newActivityHeaderBackground"></div>
+          <font class="newActivityHeaderText">{{news.data2.activityInfo.name}}</font>
+      </div>
+      <div class="newPhotoInfoTable white">
+        <img class="newProfImg activity" src="img/prof.jpg"></img>
+        <i class="newBodyText huge wait icon"></i>
+        <font class="newBodyText date" >{{news.data2.activityInfo.date}}</br>{{news.data2.activityInfo.time}}</font>
       </div>
     </div>
   </div>
@@ -23,7 +28,7 @@
       <div class="newsDate">{{news.data2.date}}</div>
     </div>
     <div id="newsFooterBtns" class="ui fluid buttons">
-      <button class="ui button">Katılıyorum</button>
+      <button class="ui button">Katıl</button>
       <button class="ui button" ng-click="page.OpenYorumPage(news.data2.yorumData)">Yorum Yap</button>
     </div>
   </div>

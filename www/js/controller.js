@@ -5,45 +5,9 @@ HammerJS reflesh bir bak..
 $(document).ready(function(){
   //window.addEventListener("touchstart", function(e) { e.preventDefault();}, false);
   //window.addEventListener("touchmove", function(e) { e.preventDefault();}, false);
-
-  $('.ui.dropdown').dropdown({
- onChange: function() {
-   if($('#shareType').text()[0] == "A")
-   {
-     $('.shareTPI').addClass('users');
-     $('.shareTPI').removeClass('info');
-     $('.shareTPI').removeClass('building');
-     $('.shareTPI').removeClass('world');
-     $('.shareTPI').removeClass('university');
-
-   }
-   else if($('#shareType').text()[0] == 'B')
-   {
-     $('.shareTPI').addClass('building');
-     $('.shareTPI').removeClass('info');
-     $('.shareTPI').removeClass('users');
-     $('.shareTPI').removeClass('world');
-     $('.shareTPI').removeClass('university');
-   }
-   else if($('#shareType').text()[0] == 'F')
-   {
-     $('.shareTPI').addClass('university');
-     $('.shareTPI').removeClass('info');
-     $('.shareTPI').removeClass('building');
-     $('.shareTPI').removeClass('users');
-     $('.shareTPI').removeClass('world');
-   }
-   else if($('#shareType').text()[0] == 'Ü')
-   {
-     $('.shareTPI').addClass('world');
-     $('.shareTPI').removeClass('info');
-     $('.shareTPI').removeClass('building');
-     $('.shareTPI').removeClass('users');
-     $('.shareTPI').removeClass('university');
-   }
- }
-});
-
+  $('.input').keypress(function(){
+    $('.input').removeClass('error');
+  });
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     console.log(StatusBar);
@@ -72,6 +36,7 @@ app.controller('PanelController',function(){
     this.tab = 1 ;
 
     this.init = function (){
+      $('share-page').hide();
       $('#panelTab1').show('drop',{},500,function(){});
       $('#panelTab2').hide();
       $('#panelTab3').hide();
@@ -126,11 +91,16 @@ app.controller('PageController',function(){
     this.yorumPanelKey = false;
     this.searchPanelKey = false;
     this.sharePanelKey = false ;
+    this.activityPanelKey = false;
 
     this.yorumPanelData = "";
 
     this.initFunction = function(){
       leftMenu = false;
+      rightMenu = false;
+      $('menu-panel').hide();
+      $('activity-Page').hide();
+
       $('#pageSection1').hide();
       $('#pageSection3').hide();
       $('.leftMenu').hide();
@@ -144,6 +114,9 @@ app.controller('PageController',function(){
 
     this.OpenLeftMenu = function(){
       leftMenu = true ;
+      $('menu-panel').show();
+      $('.leftMenu').hide();
+      $('.rightMenu').hide();
       $('.leftMenu').show("drop",{},500,function(){});
     }
     this.CloseLeftMenu = function(){
@@ -153,6 +126,9 @@ app.controller('PageController',function(){
 
     this.OpenRightMenu = function(){
       rightMenu = true ;
+      $('menu-panel').show();
+      $('.rightMenu').hide();
+      $('.leftMenu').hide();
       $('.rightMenu').show("drop",{direction:"right"},500,function(){});
     }
     this.CloseRightMenu = function(){
@@ -166,6 +142,7 @@ app.controller('PageController',function(){
       this.searchPanelKey = false ;
     }
     this.OpenSharePage = function(){
+      $('share-page').show();
       this.sharePanelKey = true ;
       $('.rightMenu').hide();
     }
@@ -176,9 +153,23 @@ app.controller('PageController',function(){
       $('.shareTPI').removeClass('building');
       $('.shareTPI').removeClass('users');
       $('.shareTPI').removeClass('world');
+      $('.activity.text').text("Paylaşım Kitlesini Seç...");
+      $('.shareText').val("");
+    }
+    this.OpenActivityPage = function(){
+      $('activity-page').show();
+      this.activityPanelKey = true ;
+      $('.rightMenu').hide();
+    }
+    this.CloseActivityPage = function(){
+      this.activityPanelKey = false ;
+      $('.shareTPI').addClass('info');
+      $('.shareTPI').removeClass('university');
+      $('.shareTPI').removeClass('building');
+      $('.shareTPI').removeClass('users');
+      $('.shareTPI').removeClass('world');
       $('#shareType').text("Paylaşım Kitlesini Seç...");
       $('.shareText').val("");
-
     }
 
     //Top Menu button 1
@@ -360,7 +351,7 @@ app.controller('MessageController',function(){
                   name: "Efecan Altay",
                   profImg : "img/prof.jpg"
                  },
-          text : "Çok Güzel Bir etkinlikti",
+          text : "Yorumları Alalım",
           date : "23.12.07",
           time : "23.00"
           },
@@ -371,7 +362,7 @@ app.controller('MessageController',function(){
                   name: "Android",
                   profImg : "img/ic_launcher.png"
                   },
-          text : "Evet Katılıyorum",
+          text : "Çok Güzel bir uygulama",
           date : "23.12.07",
           time : "23.00"
           },
@@ -404,22 +395,22 @@ app.controller('MessageController',function(){
         yorumStatus:["building","cloud"],
         yorums : [{
           count: 0,
+          your : false,
+          user : {
+              name: "Android",
+              profImg : "img/ic_launcher.png"
+          },
+          text : "Resim Bi harika",
+          date : "23.12.07",
+          time : "23.00"
+          },{
+          count: 1,
           your : true,
           user : {
               name: "Efecan Altay",
               profImg : "img/prof.jpg"
           },
-          text : "Çok Güzel Bir etkinlikti",
-          date : "23.12.07",
-          time : "23.00"
-          },{
-          count: 1,
-          your : false,
-          user : {
-              name: "Efecan Altay",
-              profImg : "img/prof.jpg"
-          },
-          text : "Evet Katılıyorum",
+          text : "Teşekkür Ederim",
           date : "23.12.07",
           time : "23.00"
         }]
@@ -427,8 +418,8 @@ app.controller('MessageController',function(){
     };
     this.data2={
       dataType:"Text",
-      bodyText : "Merhabalar Ben Efecan Altay.\n Sizlere bu Sosyal Paylaşım Platformunu kurdum.",
-      bodyImage: "Resimm",
+      bodyImage: "Resim",
+      activityInfo :{name:"Akıllı Cihazların Önemi",date:"23 Ekim 2016",time:"20:00"},
       viewCount: 8,
       likeCount : 3,
       date : "07.05.2016",
@@ -462,7 +453,7 @@ app.controller('MessageController',function(){
       }
     };
 
-  })
+  });
   app.directive('newsTextTable',function(){
     return{
       restrict : 'E',
@@ -485,6 +476,24 @@ app.controller('MessageController',function(){
     return{
       restrict : 'E',
       templateUrl: 'html/YorumPanel.html'
+    };
+  });
+  app.directive('sharePage',function(){
+    return{
+      restrict : 'E',
+      templateUrl: 'html/sharePage.html'
+    };
+  });
+  app.directive('menuPanel',function(){
+    return{
+      restrict : 'E',
+      templateUrl: 'html/menus.html'
+    };
+  });
+  app.directive('activityPage',function(){
+    return{
+      restrict : 'E',
+      templateUrl: 'html/activityPage.html'
     };
   });
 })();

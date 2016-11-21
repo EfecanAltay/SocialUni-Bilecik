@@ -41,36 +41,7 @@
         <i  class="spinner massive loading icon"></i>
       </div>
       <div class="page default" ng-init="page.initFunction()" ng-controller="PageController as page" >
-          <div class="leftMenu">
-            <div class ="menuButtonList">
-              <br>
-              <font class="menuText">SocialUni</font>
-              <img class="menuImage" src="img/Bileciklogo.png"></img>
-              <div class="menuSeparator"></div>
-              <div class="menuButton">Mesajlar</div>
-              <div class="menuButton">Profil Ayarı</div>
-              <div class="menuButton">Puanımı gör</div>
-              <div class="menuSeparator"></div>
-              <div class="menuButton">Uygulama Bilgisi</div>
-              <div class="menuButton" onclick="setWindowLocate('index.html')">Çıkış</div>
-              <div class="menuButton Back" ng-click="page.CloseLeftMenu()"><i class="white remove icon"></i></div>
-            </div>
-          </div>
-          <div class="rightMenu">
-            <div class ="menuButtonList" >
-              <br>
-              <font class="menuText">SocialUni</font>
-              <img class="menuImage" src="img/Bileciklogo.png"></img>
-              <div class="menuSeparator"></div>
-              <div class="menuButton" ng-click="page.OpenSharePage()">Düşünceni Paylaş</div>
-              <div class="menuButton">Etkinlik Oluştur</div>
-              <div class="menuButton">Paylaşımları Süz</div>
-              <div class="menuSeparator"></div>
-              <div class="menuButton">Uygulama Bilgisi</div>
-              <div class="menuButton" onclick="setWindowLocate('index.html')">Çıkış</div>
-              <div class="menuButton Back" ng-click="page.CloseRightMenu()"><i class="white remove icon"></i></div>
-            </div>
-          </div>
+        <menu-panel></menu-panel>
         <div class="pageHeader">
           <div class="headerBackground transparent"></div>
           <div class="topButton left" ng-show="page.btn1" ng-click="page.btn1function()"><i id="pbtn1" class="align justify large icon"></i></div>
@@ -78,34 +49,14 @@
           <font class="headerFont">{{page.header}}</font>
         </div>
         <div id="pageSection1">
-          <div class="sharePage" ng-show="page.sharePanelKey" >
-            <div class="shareTable" >
-              <font style="font-size:50px;border-bottom :2px solid white;padding-bottom:2%;">Paylaş</font></br></br></br>
-              <div class="field">
-                <div class="shareType ui fluid selection dropdown labeled icon button">
-                  <i class="shareTPI info  icon"></i>
-                  <span id="shareType" class="text">Paylaşım Kitlesini Seç...</span>
-                  <div class="menu" style="max-height:200px;height:200px;">
-                    <div class="item">Arkadaşlar Arası Paylaş</div>
-                    <div class="item">Bölüm İçi Paylaş</div>
-                    <div class="item">Fakülte İçi Paylaş</div>
-                    <div class="item">Üniversite İçi Paylaş</div>
-                  </div>
-                </div></br>
-                <label>Ne Düşünüyorsun?</label>
-                <textarea class="shareText" rows="6" cols="45" placeholder="Düşünceni yaz.."></textarea>
-              </div>
-              <button class="shareButton blue fluid ui button">PAYLAŞ</button>
-              <button class="shareBackButton fluid ui button" ng-click="page.CloseSharePage()">İptal</button>
-            </div>
-          </div>
+          <share-page></share-page>
+          <activity-page></activity-page>
           <div id="refleshButton">
             <i  class="large undo icon"></i>
           </div>
           <div id="scrolltable" class="scrollTable" ng-controller="newsController as news">
             <news-text-table></news-text-table>
             <news-photo-table></news-photo-table>
-            <news-text-table></news-text-table>
             <news-activity-table></news-activity-table>
           </div>
         </div>
