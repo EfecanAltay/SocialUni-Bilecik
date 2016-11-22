@@ -7,6 +7,7 @@ $(document).ready(function(){
   //window.addEventListener("touchmove", function(e) { e.preventDefault();}, false);
   $('.input').keypress(function(){
     $('.input').removeClass('error');
+
   });
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
@@ -303,31 +304,6 @@ app.controller('PageController',function(){
 app.controller('ProfileController',function(){
   this.data = profile;
 });
-
-app.controller('MessageController',function(){
-  this.status = 1;
-  this.active=0 ;
-  this.close = function(){
-    active = 0 ;
-    $("#message").hide("drop" ,{direction: "up"});
-  }
-  switch (this.status) {
-    case 0:
-      this.data = wrongPass ;
-      $("#message").removeClass("green");
-      $("#message").addClass("red");
-      $("#message").show("bounce");
-      break;
-    case 1:
-      this.data = successLogin;
-      $("#message").removeClass("red");
-      $("#message").addClass("green");
-      $("#message").fadeIn("bounce");
-      break;
-    default:
-
-  }
-  });
   app.controller('newsController',function(){
 
     this.data0={
