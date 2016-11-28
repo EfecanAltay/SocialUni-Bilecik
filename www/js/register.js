@@ -35,7 +35,12 @@ function register(){
     type: "POST",
     url: "http://localhost:3030/register",
     data: {kadi :kadi ,pass:pass,mail:mail},
-    success:function(data){
+    error:function(data){
+      if(data.statusText =="error"){
+        showErrorMessage("bağlantıda sorun var");
+      }
+    },
+    success:function(data,err){
             console.log(data);
         }
     });

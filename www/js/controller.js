@@ -1,10 +1,54 @@
 /* Notlar
 HammerJS reflesh bir bak..
 */
+$.getScript("js/CookieControl.js");
+
+function getProfilData(kid){
+  var profileData ;
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:3030/users/getProfile",
+      data: { kid :kid },
+      error: function(data){
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+      },
+      success:function(data){
+        if(!data.status){
+          //setWindowLocate('index.html');
+          logout();
+        }
+        else
+          profileData = data.profileData ;
+      }
+    });
+    return profileData ;
+}
+
+function logout(){
+  var kid = getCookie("veri");
+  deleteCookie("veri");
+  $.ajax({
+      type: "POST",
+      url: "http://localhost:3030/users/logout",
+      data: { kid :kid },
+      error: function(data){
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+      },
+      success:function(data){
+        if(data.status){
+          console.log("silindi");
+          setWindowLocate('index.html');
+        }
+      }
+    });
+    setWindowLocate('index.html');
+}
 
 $(document).ready(function(){
   //window.addEventListener("touchstart", function(e) { e.preventDefault();}, false);
   //window.addEventListener("touchmove", function(e) { e.preventDefault();}, false);
+
   $('.input').keypress(function(){
     $('.input').removeClass('error');
 
@@ -302,7 +346,17 @@ app.controller('PageController',function(){
 });
 
 app.controller('ProfileController',function(){
-  this.data = profile;
+  var kid = getCookie("veri");
+    if(kid){
+    profileData  = getProfilData(kid);
+    console.log(profileData);
+    if(profileData)
+      this.data = profileData ;
+    }else{
+      console.error("bağlantı hatası var Tekrar giriş yapınız : " + kid);
+      this.data ="";
+      logout();
+    }
 });
   app.controller('newsController',function(){
 
@@ -481,14 +535,3 @@ var successLogin={
   head :"Giriş Başarılı",
   body : "Giriş Yaptınız"
 }
-var profile ={
-  name : "Efecan",
-  surname :"Altay",
-  fakulte : "Mühendislik Fakültesi",
-  bolum : "Bilgisayar Mühendisliği",
-  durum : "Öğrenci",
-  img: "img/prof.jpg",
-  kimg:"img/kres.jpg"
-}
-
-//Rayu11

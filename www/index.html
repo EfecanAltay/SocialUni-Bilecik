@@ -26,13 +26,14 @@
     <script src="semantic/dist/semantic.min.js"></script>
     <script src="./js/controller.js"></script>
     <script src="./js/login.js"></script>
+    <script type="text/javascript" src="js/messageBox.js"></script>
 
     </head>
   <body ng-app="myApp">
-      <div id="message" class="ui floating fluid message"  ng-controller="MessageController as message" ng-show="message.active">
-        <i class="close icon" ng-click="message.close()"></i>
-        <div class="header">{{message.data.head}}</div>
-        {{message.data.body}}
+      <div id="message" class="ui floating fluid message">
+        <i class="close icon" onclick="closeMessageBox()"></i>
+        <div id="msgHeader"class="header"></div>
+        <span id="msgBody"></span>
       </div>
       <div class="backgroundColor"></div>
       <img id="background" src="img/background.jpg"></img>
