@@ -50,17 +50,24 @@
         <div id="pageSection1">
           <share-page></share-page>
           <activity-page></activity-page>
-          <div id="refleshButton">
-            <i  class="large undo icon"></i>
-          </div>
-          <div id="scrolltable" class="scrollTable" ng-controller="newsController as news">
-            <news-text-table></news-text-table>
-            <news-photo-table></news-photo-table>
-            <news-activity-table></news-activity-table>
-          </div>
+          <span ng-controller="newsController as news">
+            <div id="refleshButton" ng-click="news.reflesh()">
+              <i  class="large undo icon"></i>
+            </div>
+            <div id="scrolltableNews" class="scrollTable" >
+              <news-text-table ></news-text-table>
+            </div>
+          </span>
         </div>
         <div id="pageSection2" ng-controller="ProfileController as profile">
-          <img ng-src="{{profile.data.img}}"class="profilImageTable"></img>
+          <img  ng-src="{{profile.data.img}}" ng-click="profile.openProfilePic()" class="profilImageTable"></img>
+          <div class="setProfilPanel" ng-show="profile.setProfilePicKey" Align="center">
+            <img id="setProfilPanelImage" class="ui small image" ng-src="img/defaultPR.png"></img>
+            <input type='file' onchange="readURL(this)" fileread="profile.imSrc" id="setProfilPanelBtn" class="ui blue button"/>
+            <button id="setProfilPanelBtn" class="ui green button" ng-show="profile.imSrc" ng-click="profile.uploadImg()">Upload</button>
+            <button id="setProfilPanelBtn" class="ui red button" ng-click="profile.dropImage()">Drop Image</button>
+            <button id="setProfilPanelBtn" class="ui button" ng-click="profile.closeProfilePic()">Close</button>
+          </div>
           <div class="profileInfo">
             <ul style="list-style-type: none">
               <li><h1><font  class="infoText">{{ profile.data.name }}&nbsp&nbsp{{ profile.data.surname }}</font></h1></li>
@@ -75,7 +82,7 @@
           </img>
         </div>
         <div id="pageSection3">
-          <div id="refleshButton">
+          <div id="refleshButton" >
             <i  class="large undo icon"></i>
           </div>
           <div class="searchPanel" ng-show="page.searchPanelKey">

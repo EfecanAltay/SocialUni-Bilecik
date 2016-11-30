@@ -3,6 +3,20 @@ HammerJS reflesh bir bak..
 */
 $.getScript("js/CookieControl.js");
 
+
+function readURL(input){
+  var imageSrc ="" ;
+  if (input.files && input.files[0]) {
+   var reader = new FileReader();
+   reader.onload = function (e) {
+             $('#setProfilPanelImage')
+                 .attr('src', e.target.result)
+                 .width(150);
+          };
+   reader.readAsDataURL(input.files[0]);
+   }
+}
+
 function getProfilData(kid){
   var profileData ;
   $.ajax({
@@ -24,6 +38,28 @@ function getProfilData(kid){
     });
     return profileData ;
 }
+
+function getNews(kid){
+  var newsData ;
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:3030/news",
+      data: { kid :kid },
+      error: function(data){
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+      },
+      success:function(data){
+        if(!data.status){
+          showErrorMessage("Bağlantı Hatası","Bağlantı yanlış");
+        }
+        else
+          newsData = data.news ;
+      }
+    });
+    return newsData;
+}
+
 
 function logout(){
   var kid = getCookie("veri");
@@ -346,149 +382,97 @@ app.controller('PageController',function(){
 });
 
 app.controller('ProfileController',function(){
+  this.setProfilePicKey = false ;
+
+  this.openProfilePic = function (){
+    this.setProfilePicKey = true ;
+    $('#setProfilPanelImage')
+           .attr('src', this.data.img);
+  }
+  this.closeProfilePic = function (){
+    this.setProfilePicKey = false ;
+  }
+  this.imSrc = "";
+  this.uploadImg = function(){
+    if(this.imSrc)
+      {
+        this.data.img = this.imSrc ;
+        console.log("yükleme tamamlandı");
+        console.log(this.data.img);
+      }
+  }
+  this.dropImage = function(){
+      this.imSrc = "";
+      $('#setProfilPanelImage')
+             .attr('src', "img/defaultPR.png")
+             .width(150);
+      $('#setProfilPanelBtn').val("");
+  }
   var kid = getCookie("veri");
     if(kid){
     profileData  = getProfilData(kid);
     console.log(profileData);
-    if(profileData)
+    }
+
+    if(profileData){
       this.data = profileData ;
     }else{
       console.error("bağlantı hatası var Tekrar giriş yapınız : " + kid);
       this.data ="";
       logout();
     }
-});
-  app.controller('newsController',function(){
 
-    this.data0={
-      dataType:"Text",
-      bodyText : "Merhabalar Ben Efecan Altay.\n Sizlere bu Sosyal Paylaşım Platformunu kurdum.",
-      bodyImage: "Resimm",
-      viewCount: 5,
-      likeCount : 3,
-      date : "07.05.2016",
-      yorumData : {
-        yorumHeader:"Merhabalar ben ...",
-        yorumIconIndex:0,
-        yorumIcon:["comment" , "picture" ,"student"],
-        yorumStatusIndex:0,
-        yorumStatus:["building","cloud"],
-        yorums : [
-          {
-          count: 0,
-          your : true,
-          user : {
-                  name: "Efecan Altay",
-                  profImg : "img/prof.jpg"
-                 },
-          text : "Yorumları Alalım",
-          date : "23.12.07",
-          time : "23.00"
-          },
-          {
-          count: 1,
-          your : false,
-          user : {
-                  name: "Android",
-                  profImg : "img/ic_launcher.png"
-                  },
-          text : "Çok Güzel bir uygulama",
-          date : "23.12.07",
-          time : "23.00"
-          },
-          {
-          count: 2,
-          your : false,
-          user : {
-                  name: "Bilecik",
-                  profImg : "img/bileciklogo.jpg"
-                  },
-          text : "Bende Evet Katılıyorum",
-          date : "23.12.07",
-          time : "23.00"
-          }
-      ]
+});
+app.directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                scope.$apply(function () {
+                    scope.fileread = changeEvent.target.files[0];
+                });
+            });
+        }
     }
-    };
-    this.data1={
-      dataType:"Text",
-      bodyText : "Merhabalar Ben Efecan Altay.\n Sizlere bu Sosyal Paylaşım Platformunu kurdum.",
-      bodyImage: "Resimm",
-      viewCount: 10,
-      likeCount : 5,
-      date : "07.05.2016",
-      yorumData : {
-        yorumHeader:"Merhabalar ben ...",
-        yorumIconIndex:1,
-        yorumIcon:["comment" , "picture" ,"student"],
-        yorumStatusIndex:0,
-        yorumStatus:["building","cloud"],
-        yorums : [{
-          count: 0,
-          your : false,
-          user : {
-              name: "Android",
-              profImg : "img/ic_launcher.png"
-          },
-          text : "Resim Bi harika",
-          date : "23.12.07",
-          time : "23.00"
-          },{
-          count: 1,
-          your : true,
-          user : {
-              name: "Efecan Altay",
-              profImg : "img/prof.jpg"
-          },
-          text : "Teşekkür Ederim",
-          date : "23.12.07",
-          time : "23.00"
-        }]
+}]);
+app.controller('newsController',function($compile,$scope){
+
+    this.data  = "";
+    this.modeldata = "";
+    this.reflesh = function(){
+      $('#scrolltableNews').html('');
+        var kid = getCookie("veri");
+        this.data = getNews(kid);
+        angular.forEach(this.data,function(a){
+          addNewElement(a);
+          //console.log(a);
+      });
+    }
+    function addNewElement(data){
+      this.modeldata = data ;
+      this.dada = data ;
+      console.log(data);
+      if(data.dataType == "Text"){
+        $('#scrolltableNews').append($compile("<news-text-table><news-text-table/>")($scope));
       }
-    };
-    this.data2={
-      dataType:"Text",
-      bodyImage: "Resim",
-      activityInfo :{name:"Akıllı Cihazların Önemi",date:"23 Ekim 2016",time:"20:00"},
-      viewCount: 8,
-      likeCount : 3,
-      date : "07.05.2016",
-      yorumData : {
-        yorumHeader:"Merhabalar ben ...",
-        yorumIconIndex:2,
-        yorumIcon:["comment" , "picture" ,"student"],
-        yorumStatusIndex:0,
-        yorumStatus:["building","cloud"],
-        yorums : [{
-          count: 0,
-          your : true,
-          user : {
-              name: "Efecan Altay",
-              profImg : "img/prof.jpg"
-          },
-          text : "Çok Güzel Bir etkinlikti",
-          date : "23.12.07",
-          time : "23.00"
-          },{
-          count: 1,
-          your : false,
-          user : {
-              name: "Efecan Altay",
-              profImg : "img/prof.jpg"
-          },
-          text : "Evet Katılıyorum",
-          date : "23.12.07",
-          time : "23.00"
-        }]
+      else if(data.dataType == "Photo")
+      {
+        $('#scrolltableNews').append($compile("<news-photo-table><news-photo-table/>")($scope));
       }
-    };
+      else if(data.dataType == "Activity")
+      {
+        $('#scrolltableNews').append($compile("<news-activity-table><news-activity-table/>")($scope));
+      }
+    }
 
   });
   app.directive('newsTextTable',function(){
     return{
       restrict : 'E',
       templateUrl: 'html/newsText.html'
-    };
+    }
   });
   app.directive('newsPhotoTable',function(){
     return{
