@@ -82,9 +82,7 @@
           </img>
         </div>
         <div id="pageSection3">
-          <div id="refleshButton" >
-            <i  class="large undo icon"></i>
-          </div>
+
           <div class="searchPanel" ng-show="page.searchPanelKey">
             <div class="searchPanelBg" ></div>
             <div id="searchBar" class="ui massive icon input">
@@ -95,46 +93,19 @@
               <i class="remove circle big outline icon" ng-click="page.CloseSearchPanel()"></i>
             </div>
           </div>
-          <div class="scrollTable">
-              <!-- Arkadaş Listesi !-->
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+          <span ng-controller="friendListController as friendsTables">
+            <div id="refleshButton" ng-click="friendsTables.reflesh()">
+              <i  class="large undo icon"></i>
             </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/ic_launcher.png"></img>
-              <div class="ftInfo">Android</br></br>Sistem müh.</div>
+            <div id="scrolltableFriends" class="scrollTable" >
+                <!-- Arkadaş Listesi !-->
+              <div class="friendTable">
+                <img class="ftPhoto" src="img/prof.jpg"></img>
+                <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
+              </div>
+                <!-- Arkadaş Listesi !-->
             </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/ic_launcher.png"></img>
-              <div class="ftInfo">Android</br></br>Sistem müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/ic_launcher.png"></img>
-              <div class="ftInfo">Android</br></br>Sistem müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-            <div class="friendTable">
-              <img class="ftPhoto" src="img/prof.jpg"></img>
-              <div class="ftInfo">Efecan Altay</br></br>Bilgisayar müh.</div>
-            </div>
-              <!-- Arkadaş Listesi !-->
-          </div>
+          </span>
         </div>
         <Yorum-Panel></Yorum-Panel>
         <div class="bottomMenu" >

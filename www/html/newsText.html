@@ -6,21 +6,21 @@
   </div>
   <img class="newProfImg" src="img/prof.jpg"></img>
   <div class="newsBody">
-    <font>{{message}}</font>
+    <font>{{new.data.bodyText}}</font>
   </div>
   <div class="newsFooter">
     <div class="newsInfo">
       <div class="newsLike">
         <i class="eye large icon"></i>
-        <font id="viewCount">{{news.data.viewCount}} &nbsp</font>
+        <font id="viewCount">{{new.data.viewCount}} &nbsp</font>
         <i class="thumbs outline up large icon"></i>
-        <font id="likeCount">{{news.data.likeCount}}</font>
+        <font id="likeCount">{{new.data.likeCount}}</font>
       </div>
-      <div class="newsDate">{{news.data.date}}</div>
+      <div class="newsDate">{{new.data.date}}</div>
     </div>
     <div id="newsFooterBtns" class="ui fluid buttons">
       <button class="ui button">Begen</button>
-      <button class="ui button" ng-click="page.OpenYorumPage(news.data0.yorumData)" >Yorum Yap</button>
+      <button class="ui button" ng-click="page.OpenYorumPage(new.data.yorumData)" >Yorum Yap</button>
     </div>
   </div>
 </div>

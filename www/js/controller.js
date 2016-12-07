@@ -38,6 +38,29 @@ function getProfilData(kid){
     });
     return profileData ;
 }
+function getFriends(kid){
+  var friends ;
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://localhost:3030/users/getFriends",
+      data: { kid :kid },
+      error: function(data){
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+      },
+      success:function(data){
+        if(!data.status){
+          showErrorMessage("Bağlantı Hatası","Bağlantı yanlış");
+        }
+        else
+        {
+          friends = data.friendsData ;
+        }
+      }
+    });
+    return friends;
+}
+
 
 function getNews(kid){
   var newsData ;
@@ -437,41 +460,81 @@ app.directive("fileread", [function () {
         }
     }
 }]);
+app.controller('friendListController',function($compile,$scope){
+  this.friendsData = "";
+  this.reflesh = function(){
+    $('#scrolltableFriends').html('');
+      var kid = getCookie("veri");
+      this.friendsData = getFriends(kid);
+      console.log(this.friendsData[0]);
+      if(this.friendsData)
+        for(var i = 0 ; i < this.friendsData.length ; i++)
+        {
+          this.panelData = this.friendsData[i];
+          addFriendTable(this.panelData);
+        }
+  }
+  function addFriendTable(friendData){
+    Jdata = JSON.stringify(friendData);
+    //console.log(Jdata);
+    $('#scrolltableFriends').append($compile("<user-table ng-controller='friendTableController as ftable' ng-init='ftable.setData("+ Jdata +")'><user-table/>")($scope));
+  }
+});
+app.controller('friendTableController',function(){
+  this.data = "";
+  this.setData = function(data){
+    this.data =data;
+  }
+});
+
 app.controller('newsController',function($compile,$scope){
 
     this.data  = "";
-    this.modeldata = "";
+    this.panelData = "";
     this.reflesh = function(){
       $('#scrolltableNews').html('');
         var kid = getCookie("veri");
         this.data = getNews(kid);
-        angular.forEach(this.data,function(a){
-          addNewElement(a);
-          //console.log(a);
-      });
+        for(var i = 0 ; i < this.data.length ; i++)
+        {
+          this.panelData = this.data[i];
+          addNewElement(this.panelData);
+        }
     }
     function addNewElement(data){
-      this.modeldata = data ;
-      this.dada = data ;
-      console.log(data);
+      Jdata = JSON.stringify(data);
       if(data.dataType == "Text"){
-        $('#scrolltableNews').append($compile("<news-text-table><news-text-table/>")($scope));
+
+        $('#scrolltableNews').append($compile("<news-text-table ng-controller='newController as new' ng-init='new.setData("+ Jdata +")'><news-text-table/>")($scope));
       }
       else if(data.dataType == "Photo")
       {
-        $('#scrolltableNews').append($compile("<news-photo-table><news-photo-table/>")($scope));
+        $('#scrolltableNews').append($compile("<news-photo-table ng-controller='newController as new' ng-init='new.setData("+ Jdata +")' ><news-photo-table/>")($scope));
       }
       else if(data.dataType == "Activity")
       {
-        $('#scrolltableNews').append($compile("<news-activity-table><news-activity-table/>")($scope));
+        $('#scrolltableNews').append($compile("<news-activity-table ng-controller='newController as new' ng-init='new.setData("+ Jdata +")' ><news-activity-table/>")($scope));
       }
     }
 
   });
+  app.controller('newController',function(){
+    this.data = "";
+    this.setData = function(data){
+      this.data =data;
+      console.log(this.data.bodyText);
+    }
+    this.msg = function(){
+      alert("hello");
+    }
+  });
   app.directive('newsTextTable',function(){
     return{
       restrict : 'E',
-      templateUrl: 'html/newsText.html'
+      templateUrl: 'html/newsText.html',
+      controller : function(){
+        this.data ="";
+      }
     }
   });
   app.directive('newsPhotoTable',function(){
@@ -508,6 +571,12 @@ app.controller('newsController',function($compile,$scope){
     return{
       restrict : 'E',
       templateUrl: 'html/activityPage.html'
+    };
+  });
+  app.directive('userTable',function(){
+    return{
+      restrict : 'E',
+      templateUrl: 'html/userTable.html'
     };
   });
 })();

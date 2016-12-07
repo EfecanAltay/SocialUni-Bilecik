@@ -8,12 +8,12 @@
     <div class="newPhoto activity">
       <div class="newActivityHeader">
         <div class="newActivityHeaderBackground"></div>
-          <font class="newActivityHeaderText">{{news.data[2].activityInfo.name}}</font>
+          <font class="newActivityHeaderText">{{new.data.activityInfo.name}}</font>
       </div>
       <div class="newPhotoInfoTable white">
         <img class="newProfImg activity" src="img/prof.jpg"></img>
         <i class="newBodyText huge wait icon"></i>
-        <font class="newBodyText date" >{{news.data[2].activityInfo.date}}</br>{{news.data[2].activityInfo.time}}</font>
+        <font class="newBodyText date" >{{new.data.activityInfo.date}}</br>{{new.data.activityInfo.time}}</font>
       </div>
     </div>
   </div>
@@ -21,15 +21,15 @@
     <div class="newsInfo">
       <div class="newsLike">
         <i class="eye large icon"></i>
-        <font id="viewCount">{{news.data[2].viewCount}} &nbsp</font>
+        <font id="viewCount">{{new.data.viewCount}} &nbsp</font>
         <i class="thumbs outline up large icon"></i>
-        <font id="likeCount">{{news.data[2].likeCount}}</font>
+        <font id="likeCount">{{new.data.likeCount}}</font>
       </div>
-      <div class="newsDate">{{news.data[2].date}}</div>
+      <div class="newsDate">{{new.data.date}}</div>
     </div>
     <div id="newsFooterBtns" class="ui fluid buttons">
       <button class="ui button">Katıl</button>
-      <button class="ui button" ng-click="page.OpenYorumPage(news.data2.yorumData)">Yorum Yap</button>
+      <button class="ui button" ng-click="page.OpenYorumPage(new.data.yorumData)">Yorum Yap</button>
     </div>
   </div>
 </div>
