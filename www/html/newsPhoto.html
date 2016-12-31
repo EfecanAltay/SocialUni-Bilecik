@@ -20,7 +20,7 @@
         <i class="thumbs outline up large icon"></i>
         <font id="likeCount">{{new.data.likeCount}}</font>
       </div>
-      <div class="newsDate">{{new.data.date}}</div>
+      <div class="newsDate">{{new.data.date | date:'MM/dd/yyyy'}}</br>{{new.data.date | date:'HH:mm'}}</div>
     </div>
     <div id="newsFooterBtns" class="ui fluid buttons">
       <button class="ui button">Beğen</button>

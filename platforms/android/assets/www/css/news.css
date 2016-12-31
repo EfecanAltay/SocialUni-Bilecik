@@ -57,11 +57,18 @@
   border: 3px solid black;
   border-radius: 5px;
 }
-.newProfImg.small{
+.newProfImg.photo{
   width: 30%;
   border: 3px solid blue;
   border-radius: 5px;
   float: right;
+}
+.newProfImg.activity{
+  position: absolute;
+  width: 30%;
+  border: 3px solid blue;
+  right: 35%;
+  bottom: -35%;
 }
 .newPhoto{
   width: 100%;
@@ -81,11 +88,42 @@
   opacity: 1;
   padding: 5%;
 }
-.newBodyText.small{
+.newPhotoInfoTable.white{
+  background-color: white;
+  top :45%;
+
+}
+.newBodyText.icon{
+  float:right;
+}
+.newBodyText.date{
+  font-size: 20px;
+  font-weight: bold;
+}
+.newBodyText.white{
   float:left;
   color:white;
   font-size: 10px;
   width: 60%;
+}
+.newActivityHeader{
+  position: relative;
+  width: 100%;
+  height: 20%;
+  color:white;
+  font-size: 20px;
+}
+.newActivityHeaderBackground{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+}
+.newActivityHeaderText{
+  position: relative;
+  top:25%;
+  z-index: 99;
 }
 #newsFooterBtns{
   width: 100%;

@@ -4,26 +4,27 @@
     <font id="newsHeaderFont" >Fotograf</font>
     <i id="newsHeaderStatusIcon" class="big building icon"></i>
   </div>
-  <img class="newProfImg" src="img/prof.jpg"></img>
   <div class="newsBody">
-    <div class="newPhotoTable">
-      <img class="newPhoto" src="img/background.jpg"></img>
+    <div class="newPhoto activity">
+      <div class="newPhotoInfoTable">
+        <img class="newProfImg photo" src="img/prof.jpg"></img>
+        <font class="newBodyText white" >{{new.data.bodyText}}</font>
+      </div>
     </div>
-    <font>{{news.data1.bodyImage}}</font>
   </div>
   <div class="newsFooter">
     <div class="newsInfo">
       <div class="newsLike">
         <i class="eye large icon"></i>
-        <font id="viewCount">{{news.data1.viewCount}} &nbsp</font>
+        <font id="viewCount">{{new.data.viewCount}} &nbsp</font>
         <i class="thumbs outline up large icon"></i>
-        <font id="likeCount">{{news.data1.likeCount}}</font>
+        <font id="likeCount">{{new.data.likeCount}}</font>
       </div>
-      <div class="newsDate">{{news.data1.date}}</div>
+      <div class="newsDate">{{new.data.date}}</div>
     </div>
-    <div class="ui fluid buttons">
-      <button class="ui button">Begen</button>
-      <button class="ui button" ng-click="page.openYorumPage(news.data1.yorumData)">Yorum Yap</button>
+    <div id="newsFooterBtns" class="ui fluid buttons">
+      <button class="ui button">Beğen</button>
+      <button class="ui button" ng-click="page.OpenYorumPage(new.data.yorumData)">Yorum Yap</button>
     </div>
   </div>
 </div>

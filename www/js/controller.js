@@ -1,7 +1,41 @@
 /* Notlar
 HammerJS reflesh bir bak..
 */
+
+//set Profil Texture 446. satırda hata düzeltilecek base64 bit dönüşümü yapılıp json veri gönderilecek
 $.getScript("js/CookieControl.js");
+$.getScript("js/ImagetoBase64Data.js");
+
+
+var ip = "10.82.15.100";
+
+
+function refleshNewsButton(){
+  var scope = angular.element(document.getElementById("refleshButton")).scope();
+    $('#scrolltableNews').text('');
+    var kid = getCookie("veri");
+    scope.data = getNews(kid);
+    for(var i = scope.data.length-1 ; i >= 0 ; i--)
+    {
+      scope.panelData = scope.data[i];
+      scope.addNewElement(scope.panelData);
+    }
+}
+
+function refleshFriendsButton(){
+  var scope = angular.element(document.getElementById("friendlist")).scope();
+  $('#scrolltableFriends').html('');
+    var kid = getCookie("veri");
+    scope.friendsData = getFriends(kid);
+    console.log(scope.friendsData[0]);
+    if(scope.friendsData)
+      for(var i = 0 ; i < scope.friendsData.length ; i++)
+      {
+        scope.panelData = scope.friendsData[i];
+        scope.addFriendTable(scope.panelData);
+
+      }
+}
 
 
 function readURL(input){
@@ -17,15 +51,16 @@ function readURL(input){
    }
 }
 
-function getProfilData(kid){
+function getProfilData(){
+  var kid = getCookie("veri");
   var profileData ;
   $.ajax({
       type: "POST",
       async: false,
-      url: "http://localhost:3030/users/getProfile",
+      url: "http://"+ip+":3030/users/getProfile",
       data: { kid :kid },
       error: function(data){
-        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+        showErrorMessage("Bağlantı Hatası2","Bağlantınızı kontrol edin profil");
       },
       success:function(data){
         if(!data.status){
@@ -43,10 +78,10 @@ function getFriends(kid){
   $.ajax({
       type: "POST",
       async: false,
-      url: "http://localhost:3030/users/getFriends",
+      url: "http://"+ip+":3030/users/getFriends",
       data: { kid :kid },
       error: function(data){
-        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin friend");
       },
       success:function(data){
         if(!data.status){
@@ -67,10 +102,31 @@ function getNews(kid){
   $.ajax({
       type: "POST",
       async: false,
-      url: "http://localhost:3030/news",
+      url: "http://"+ip+":3030/news",
       data: { kid :kid },
       error: function(data){
-        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin news");
+      },
+      success:function(data){
+        if(!data.status){
+          showErrorMessage("Bağlantı Hatası","Bağlantı yanlış");
+        }
+        else
+          newsData = data.news ;
+      }
+    });
+    return newsData;
+}
+function sendNewsData(newsId,likeCount){
+  var newsData ;
+  var kid = getCookie("veri");
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://"+ip+":3030/news/likeShare",
+      data: { _id : newsId ,kid :kid ,likeCount : likeCount},
+      error: function(data){
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin news");
       },
       success:function(data){
         if(!data.status){
@@ -83,25 +139,90 @@ function getNews(kid){
     return newsData;
 }
 
+function setProfilPic(imageData){
+  var base64Image = getBase64Image(imageData);
+  var kid = getCookie("veri");
+  //console.log(base64Image);
+  var status ="";
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://"+ip+":3030/users/setProfileImage",
+      data: { kid :kid , profImage : base64Image},
+      error: function(data){
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+      },
+      success:function(data){
+        if(!data.status){
+          //setWindowLocate('index.html');
+        }
+        else
+          status = data.status ;
+      }
+    });
+    return status ;
+}
 
 function logout(){
   var kid = getCookie("veri");
-  deleteCookie("veri");
   $.ajax({
       type: "POST",
-      url: "http://localhost:3030/users/logout",
+      url: "http://"+ip+":3030/users/logout",
       data: { kid :kid },
       error: function(data){
-        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin logut");
       },
       success:function(data){
         if(data.status){
           console.log("silindi");
           setWindowLocate('index.html');
+          deleteCookie("veri");
+        }
+        else{
+          showErrorMessage("Server Sorunu","Şuan Çıkış Yapamazsınız sonra tekrar deneyiniz.");
         }
       }
     });
-    setWindowLocate('index.html');
+}
+function creatShareText(kid,bodyText){
+  var status ="";
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://"+ip+":3030/news/CreateShare",
+      data: { kid :kid,type:0 , bodyText : bodyText},
+      error: function(data){
+        console.error("Hata Sunucu Yanıt vermiyor");
+      },
+      success:function(data){
+        if(!data.status){
+          //setWindowLocate('index.html');
+        }
+        else
+          status = data.status ;
+      }
+    });
+    return status ;
+}
+function creatShareActivity(kid,bodyText,date,yer,time){
+  var status ="";
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://"+ip+":3030/news/CreateShare",
+      data: { kid :kid ,type:1, date: date, bodyText : bodyText,yer:yer,time:time },
+      error: function(data){
+        console.error("Hata Sunucu Yanıt vermiyor");
+      },
+      success:function(data){
+        if(!data.status){
+          //setWindowLocate('index.html');
+        }
+        else
+          status = data.status ;
+      }
+    });
+    return status ;
 }
 
 $(document).ready(function(){
@@ -246,6 +367,7 @@ app.controller('PageController',function(){
       this.searchPanelKey = false ;
     }
     this.OpenSharePage = function(){
+      //angular.element(document.getElementById('newsSlider')).scope();
       $('share-page').show();
       this.sharePanelKey = true ;
       $('.rightMenu').hide();
@@ -260,6 +382,63 @@ app.controller('PageController',function(){
       $('.activity.text').text("Paylaşım Kitlesini Seç...");
       $('.shareText').val("");
     }
+    this.CreateTextShare = function(){
+      var kid = getCookie("veri");
+      var bodyText = $('#ShareText').val();
+      if(kid){
+        if(bodyText){
+          if(creatShareText(kid,bodyText)){
+            console.log("haber oluşturuldu");
+            this.CloseSharePage();
+            refleshNewsButton();
+            showSuccessMessage("Haber Oluşturuldu","Yazınız Paylaşıldı.")
+          }
+          else {
+              showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+          }
+        }
+        else{
+          console.log("text Yok")
+          showErrorMessage("Boş Metin","Gönderilecek Metni giriniz.");
+        }
+      }
+      else{
+        console.log("kid yok");
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+        this.CloseSharePage();
+      }
+    }
+    this.CreateActivityShare = function(){
+      var kid = getCookie("veri");
+      var bodyText = $('#shareTextActivity').val();
+      var date = $('#datepicker').val();
+      var yer = $('#yer').val();
+      //time
+      var time = "00:00";
+      if(kid){
+        if(bodyText){
+          if(creatShareActivity(kid,bodyText,date,yer,time)){
+            console.log("haber oluşturuldu");
+            this.CloseActivityPage();
+            showSuccessMessage("Haber Oluşturuldu","Yazınız Paylaşıldı.");
+            refleshNewsButton();
+          }
+          else {
+              showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+          }
+        }
+        else{
+          console.log("text Yok")
+          showErrorMessage("Boş Metin","Gönderilecek Metni giriniz.");
+        }
+      }
+      else{
+        console.log("kid yok");
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+        this.CloseSharePage();
+      }
+    }
+
     this.OpenActivityPage = function(){
       $('activity-page').show();
       this.activityPanelKey = true ;
@@ -419,9 +598,17 @@ app.controller('ProfileController',function(){
   this.uploadImg = function(){
     if(this.imSrc)
       {
-        this.data.img = this.imSrc ;
-        console.log("yükleme tamamlandı");
-        console.log(this.data.img);
+        var img = document.getElementById('setProfilPanelImage');
+        var status = setProfilPic(img);
+        if(status){
+          this.data.img = $('#setProfilPanelImage').attr('src') ;
+          this.closeProfilePic();
+
+          showSuccessMessage("Profiliniz Güncellenmiştir.")
+          console.log("yükleme tamamlandı");
+        }
+        else
+          console.log("yükleme hatası");
       }
   }
   this.dropImage = function(){
@@ -431,11 +618,8 @@ app.controller('ProfileController',function(){
              .width(150);
       $('#setProfilPanelBtn').val("");
   }
-  var kid = getCookie("veri");
-    if(kid){
-    profileData  = getProfilData(kid);
-    console.log(profileData);
-    }
+
+    profileData  = getProfilData();
 
     if(profileData){
       this.data = profileData ;
@@ -460,26 +644,17 @@ app.directive("fileread", [function () {
         }
     }
 }]);
+
 app.controller('friendListController',function($compile,$scope){
   this.friendsData = "";
-  this.reflesh = function(){
-    $('#scrolltableFriends').html('');
-      var kid = getCookie("veri");
-      this.friendsData = getFriends(kid);
-      console.log(this.friendsData[0]);
-      if(this.friendsData)
-        for(var i = 0 ; i < this.friendsData.length ; i++)
-        {
-          this.panelData = this.friendsData[i];
-          addFriendTable(this.panelData);
-        }
-  }
-  function addFriendTable(friendData){
-    Jdata = JSON.stringify(friendData);
-    //console.log(Jdata);
+
+  this.addFriendTable = function(data){
+    Jdata = JSON.stringify(data);
     $('#scrolltableFriends').append($compile("<user-table ng-controller='friendTableController as ftable' ng-init='ftable.setData("+ Jdata +")'><user-table/>")($scope));
-  }
+  };
+
 });
+
 app.controller('friendTableController',function(){
   this.data = "";
   this.setData = function(data){
@@ -491,17 +666,8 @@ app.controller('newsController',function($compile,$scope){
 
     this.data  = "";
     this.panelData = "";
-    this.reflesh = function(){
-      $('#scrolltableNews').html('');
-        var kid = getCookie("veri");
-        this.data = getNews(kid);
-        for(var i = 0 ; i < this.data.length ; i++)
-        {
-          this.panelData = this.data[i];
-          addNewElement(this.panelData);
-        }
-    }
-    function addNewElement(data){
+
+    $scope.addNewElement = function (data){
       Jdata = JSON.stringify(data);
       if(data.dataType == "Text"){
 
@@ -520,6 +686,20 @@ app.controller('newsController',function($compile,$scope){
   });
   app.controller('newController',function(){
     this.data = "";
+    this.isLike = false;
+    this.likeCount = 0 ;
+    this.like = function(){
+      if(this.isLike){
+        this.isLike = false;
+        this.data.likeCount--;
+        sendNewsData(this.data._id , -1);
+      }else{
+        this.isLike = true;
+        this.data.likeCount++;
+        sendNewsData(this.data._id , +1);
+      }
+    }
+
     this.setData = function(data){
       this.data =data;
       console.log(this.data.bodyText);

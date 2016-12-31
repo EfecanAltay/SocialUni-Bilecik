@@ -1,8 +1,11 @@
 $.getScript("js/CookieControl.js");
 
+//var ip = "192.168.2.76";
+var ip = "10.82.15.100";
+
 $(document).ready(function(){
     if(getCookie("veri")){
-      setWindowLocate("profile.html");
+      //setWindowLocate("profile.html");
     }
 });
 
@@ -22,15 +25,24 @@ function login(){
   else{
     $.ajax({
     type: "POST",
-    url: "http://localhost:3030/users/login",
+    url: "http://"+ip+":3030/users/login",
     data: { kadi :kadi , pass:pass},
-    error: function(data){
+    error: function(req,stat,err){
       showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+      alert(err);
     },
     success:function(data){
+      function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+          if ((new Date().getTime() - start) > milliseconds){
+            break;
+          }
+        }
+      }
       if(data.status){
         setCookie("veri",data.kid);
-        console.log(data.kid);
+        sleep(1000);
         setWindowLocate('profile.html');
       }else
       showErrorMessage("Kullanıcı Yok");

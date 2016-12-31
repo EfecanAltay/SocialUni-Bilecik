@@ -1,8 +1,8 @@
 .newsTable{
       width:80%;
+      border-radius: 8px;
       background-color: white;
       margin: 5% auto;
-      border-radius: 8px;
 }
 #newsHeaderIcon{
   float:left;
@@ -48,16 +48,82 @@
   float: right;
   padding: 3%;
 }
+.newPhotoTable{
+  width: 100%;
+  height: 100%;
+}
 .newProfImg{
   width: 50%;
   border: 3px solid black;
   border-radius: 5px;
 }
-.newProfImg:hover{
-  width: 50%;
-  border: 3px solid black;
+.newProfImg.photo{
+  width: 30%;
+  border: 3px solid blue;
   border-radius: 5px;
-  opacity: 0.6;
+  float: right;
+}
+.newProfImg.activity{
+  position: absolute;
+  width: 30%;
+  border: 3px solid blue;
+  right: 35%;
+  bottom: -35%;
+}
+.newPhoto{
+  width: 100%;
+}
+.newPhoto.activity{
+  background-image: url("../img/kres.jpg");
+  background-size:cover;
+  background-origin: content-box;
+  height: 250px;
+}
+.newPhotoInfoTable{
+  position: relative;
+  width: 100%;
+  height: 40%;
+  top :60%;
+  background-color: black;
+  opacity: 1;
+  padding: 5%;
+}
+.newPhotoInfoTable.white{
+  background-color: white;
+  top :45%;
+
+}
+.newBodyText.icon{
+  float:right;
+}
+.newBodyText.date{
+  font-size: 20px;
+  font-weight: bold;
+}
+.newBodyText.white{
+  float:left;
+  color:white;
+  font-size: 10px;
+  width: 60%;
+}
+.newActivityHeader{
+  position: relative;
+  width: 100%;
+  height: 20%;
+  color:white;
+  font-size: 20px;
+}
+.newActivityHeaderBackground{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+}
+.newActivityHeaderText{
+  position: relative;
+  top:25%;
+  z-index: 99;
 }
 #newsFooterBtns{
   width: 100%;

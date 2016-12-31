@@ -1,0 +1,28 @@
+.msgTable{
+  width: 85%;
+  height: 120px;
+  background-color: #383e4c;
+  padding: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 2%;
+}
+.msgTable.me{
+  margin-left: 10%;
+  margin-right: 2%;
+    background-color: #5a5f6e;
+}
+.msgPhoto{
+  height: 100%;
+  float: left;
+}
+.msgProfName{
+  padding: 10px ;
+  font-size: 20px;
+  border-bottom: 1px solid gray ;
+  font-weight: bold;
+}
+.msgBody{
+    padding: 10px;
+    font-size: 15px;
+}

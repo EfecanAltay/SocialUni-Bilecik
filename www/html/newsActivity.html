@@ -8,12 +8,12 @@
     <div class="newPhoto activity">
       <div class="newActivityHeader">
         <div class="newActivityHeaderBackground"></div>
-          <font class="newActivityHeaderText">{{new.data.activityInfo.name}}</font>
+          <font class="newActivityHeaderText">{{new.data.bodyText}}</font>
       </div>
       <div class="newPhotoInfoTable white">
         <img class="newProfImg activity" src="img/prof.jpg"></img>
         <i class="newBodyText huge wait icon"></i>
-        <font class="newBodyText date" >{{new.data.activityInfo.date}}</br>{{new.data.activityInfo.time}}</font>
+        <font class="newBodyText date" >{{new.data.ActivityDate}}</br>{{new.data.time}}</font>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@
         <i class="thumbs outline up large icon"></i>
         <font id="likeCount">{{new.data.likeCount}}</font>
       </div>
-      <div class="newsDate">{{new.data.date}}</div>
+      <div class="newsDate">{{new.data.date | date:'MM/dd/yyyy'}}</br>{{new.data.date | date:'HH:mm'}}</div>
     </div>
     <div id="newsFooterBtns" class="ui fluid buttons">
       <button class="ui button">Katıl</button>

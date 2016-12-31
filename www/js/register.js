@@ -1,6 +1,9 @@
 
 //Email girişi hatalı olduğunda geri dönme işlemi
 
+//var ip = "192.168.2.76";
+var ip = "10.82.15.100";
+
 $(document).ready(function(){
   $('input').keypress(function(){
     $('#errorText').hide();
@@ -33,15 +36,32 @@ function register(){
   else{
     $.ajax({
     type: "POST",
-    url: "http://localhost:3030/register",
+    url: "http://"+ip+":3030/register",
     data: {kadi :kadi ,pass:pass,mail:mail},
     error:function(data){
       if(data.statusText =="error"){
-        showErrorMessage("bağlantıda sorun var");
+        showErrorMessage("bağlantıda sorun var","Bağlantınız veya Sunucu hatalı");
       }
     },
     success:function(data,err){
             console.log(data);
+            $.ajax({
+            type: "POST",
+            url: "http://"+ip+":3030/users/login",
+            data: { kadi :kadi , pass:pass},
+            error: function(req,stat,err){
+              showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
+              alert(err);
+            },
+            success:function(data){
+              if(data.status){
+                setCookie("veri",data.kid);
+                console.log(data.kid);
+                setWindowLocate('profile.html');
+              }else
+              showErrorMessage("Kullanıcı Yok");
+            }
+            });
         }
     });
 

@@ -1,0 +1,74 @@
+<div class="sharePage" ng-show="page.activityPanelKey" >
+  <div class="shareTable" >
+    <font style="font-size:50px;border-bottom :2px solid white;padding-bottom:2%;">Etkinlik</font></br></br></br>
+    <div class="field">
+      <div class="shareType ui fluid selection dropdown labeled icon button">
+        <i class="shareTPI activity info icon"></i>
+        <span id="shareType" class="activity text">Paylaşım Kitlesini Seç...</span>
+        <div class="menu" style="max-height:200px;height:200px;">
+          <div class="item">Arkadaşlar Arası Paylaş</div>
+          <div class="item">Bölüm İçi Paylaş</div>
+          <div class="item">Fakülte İçi Paylaş</div>
+          <div class="item">Üniversite İçi Paylaş</div>
+        </div>
+      </div></br>
+      <label>Etinlik Adı :</label>
+      <textarea class="shareText" rows="1" cols="45" placeholder="Etkinlik adını gir.."></textarea>
+      <label>Etinlik Tarihi :</label>
+      <select class="ui dropdown">
+        <option value="1">Ocak</option>
+        <option value="2">Subat</option>
+        <option value="3">Mart</option>
+        <option value="4">Nisan</option>
+        <option value="5">Mayıs</option>
+        <option value="6">Haziran</option>
+        <option value="7">Temmuz</option>
+        <option value="8">Ağustos</option>
+        <option value="9">Eylül</option>
+        <option value="10">Ekim</option>
+        <option value="11">Kasım</option>
+        <option value="12">Aralık</option>
+      </select>
+    </div>
+    <button class="shareButton blue fluid ui button">Etkinlik Oluştur</button>
+    <button class="shareBackButton fluid ui button" ng-click="page.CloseActivityPage()">İptal</button>
+  </div>
+  <script>
+  $('.ui.dropdown').dropdown({
+  onChange: function() {
+   if($('.activity.text').text()[0] == "A")
+   {
+     $('.shareTPI').addClass('users');
+     $('.shareTPI').removeClass('info');
+     $('.shareTPI').removeClass('building');
+     $('.shareTPI').removeClass('world');
+     $('.shareTPI').removeClass('university');
+   }
+   else if($('.activity.text').text()[0] == 'B')
+   {
+     $('.shareTPI').addClass('building');
+     $('.shareTPI').removeClass('info');
+     $('.shareTPI').removeClass('users');
+     $('.shareTPI').removeClass('world');
+     $('.shareTPI').removeClass('university');
+   }
+   else if($('.activity.text').text()[0] == 'F')
+   {
+     $('.shareTPI').addClass('university');
+     $('.shareTPI').removeClass('info');
+     $('.shareTPI').removeClass('building');
+     $('.shareTPI').removeClass('users');
+     $('.shareTPI').removeClass('world');
+   }
+   else if($('.activity.text').text()[0] == 'Ü')
+   {
+     $('.shareTPI').addClass('world');
+     $('.shareTPI').removeClass('info');
+     $('.shareTPI').removeClass('building');
+     $('.shareTPI').removeClass('users');
+     $('.shareTPI').removeClass('university');
+   }
+  }
+  });
+  </script>
+</div>
