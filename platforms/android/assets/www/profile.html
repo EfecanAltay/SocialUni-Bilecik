@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,  width=device-width,height=device-height">
     <title>SocialUni</title>
-
     <link rel="manifest" href="manifest.json">
 
     <link href="css/style.css" rel="stylesheet">
@@ -18,6 +17,8 @@
 
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
 
@@ -50,8 +51,8 @@
         <div id="pageSection1">
           <share-page></share-page>
           <activity-page></activity-page>
-          <span ng-controller="newsController as news">
-            <div id="refleshButton" ng-click="news.reflesh()">
+          <span id="newsSlider" ng-controller="newsController as news">
+            <div id="refleshButton" onclick="refleshNewsButton()">
               <i  class="large undo icon"></i>
             </div>
             <div id="scrolltableNews" class="scrollTable" >
@@ -92,8 +93,8 @@
               <i class="remove circle big outline icon" ng-click="page.CloseSearchPanel()"></i>
             </div>
           </div>
-          <span ng-controller="friendListController as friendsTables">
-            <div id="refleshButton" ng-click="friendsTables.reflesh()">
+          <span id="friendlist" ng-controller="friendListController as friendsTables">
+            <div id="refleshButton" onclick="refleshFriendsButton()">
               <i  class="large undo icon"></i>
             </div>
             <div id="scrolltableFriends" class="scrollTable" >

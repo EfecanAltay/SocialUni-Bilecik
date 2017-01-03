@@ -16,7 +16,15 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-
+    <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <script src="semantic/dist/semantic.min.js"></script>
     <script src="./js/controller.js"></script>
@@ -46,10 +54,14 @@
                     <div id="selectDot2" class="selectDot"></div>
                   </div>
                   </br>
+                  <span id="status"></span>
                   <span id="panelTab1" >
                     <ul>
                       <li><button id="btn" class="massive fluid ui button" ng-click="panel.setTab(2)" >Giriş yap</button></li></br>
-                      <li><button id="btn" class=" massive fluid ui blue compact labeled icon button" ng-click="panel.setTab(3)"><i class="facebook icon"></i>Facebook ile Giriş yap</button></li></br>
+                      <li><button id="btn" class=" massive fluid ui blue compact labeled icon button"><i class="facebook icon"></i>Facebook ile Giriş yap</button></li></br>
+                      <!--
+                      <li><div class="fb-login-button" data-max-rows="5" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div></li></br>
+                      !-->
                       <li><button class="ui red button" onclick="setWindowLocate('register.html')" >Yada Kayıt Ol</button></li>
                     </ul>
                   </span>

@@ -7,14 +7,14 @@ $.getScript("js/CookieControl.js");
 $.getScript("js/ImagetoBase64Data.js");
 
 
-var ip = "10.82.15.100";
-
+//var ip = "10.82.15.100";
+var ip = "localhost";
+var kid = "";
 
 function refleshNewsButton(){
   var scope = angular.element(document.getElementById("refleshButton")).scope();
     $('#scrolltableNews').text('');
-    var kid = getCookie("veri");
-    scope.data = getNews(kid);
+    scope.data = getNews();
     for(var i = scope.data.length-1 ; i >= 0 ; i--)
     {
       scope.panelData = scope.data[i];
@@ -25,8 +25,7 @@ function refleshNewsButton(){
 function refleshFriendsButton(){
   var scope = angular.element(document.getElementById("friendlist")).scope();
   $('#scrolltableFriends').html('');
-    var kid = getCookie("veri");
-    scope.friendsData = getFriends(kid);
+    scope.friendsData = getFriends();
     console.log(scope.friendsData[0]);
     if(scope.friendsData)
       for(var i = 0 ; i < scope.friendsData.length ; i++)
@@ -52,13 +51,13 @@ function readURL(input){
 }
 
 function getProfilData(){
-  var kid = getCookie("veri");
+  var logid = getCookie("veri");
   var profileData ;
   $.ajax({
       type: "POST",
       async: false,
       url: "http://"+ip+":3030/users/getProfile",
-      data: { kid :kid },
+      data: { logid :logid },
       error: function(data){
         showErrorMessage("Bağlantı Hatası2","Bağlantınızı kontrol edin profil");
       },
@@ -67,19 +66,22 @@ function getProfilData(){
           //setWindowLocate('index.html');
           logout();
         }
-        else
+        else{
           profileData = data.profileData ;
+          kid = data.profileData.kid;
+        }
       }
     });
     return profileData ;
 }
-function getFriends(kid){
+function getFriends(){
+  var logid = getCookie("veri");
   var friends ;
   $.ajax({
       type: "POST",
       async: false,
       url: "http://"+ip+":3030/users/getFriends",
-      data: { kid :kid },
+      data: { logid :logid },
       error: function(data){
         showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin friend");
       },
@@ -97,13 +99,14 @@ function getFriends(kid){
 }
 
 
-function getNews(kid){
+function getNews(){
   var newsData ;
+  var logid = getCookie("veri");
   $.ajax({
       type: "POST",
       async: false,
       url: "http://"+ip+":3030/news",
-      data: { kid :kid },
+      data: { logid :logid },
       error: function(data){
         showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin news");
       },
@@ -117,14 +120,14 @@ function getNews(kid){
     });
     return newsData;
 }
-function sendNewsData(newsId,likeCount){
+function sendNewsLikeData(newsId){
   var newsData ;
-  var kid = getCookie("veri");
+  var logid = getCookie("veri");
   $.ajax({
       type: "POST",
       async: false,
       url: "http://"+ip+":3030/news/likeShare",
-      data: { _id : newsId ,kid :kid ,likeCount : likeCount},
+      data: { newsId : newsId ,logid :logid},
       error: function(data){
         showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin news");
       },
@@ -141,14 +144,14 @@ function sendNewsData(newsId,likeCount){
 
 function setProfilPic(imageData){
   var base64Image = getBase64Image(imageData);
-  var kid = getCookie("veri");
+  var logid = getCookie("veri");
   //console.log(base64Image);
   var status ="";
   $.ajax({
       type: "POST",
       async: false,
       url: "http://"+ip+":3030/users/setProfileImage",
-      data: { kid :kid , profImage : base64Image},
+      data: { logid :logid , profImage : base64Image},
       error: function(data){
         showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
       },
@@ -164,11 +167,11 @@ function setProfilPic(imageData){
 }
 
 function logout(){
-  var kid = getCookie("veri");
+  var logid = getCookie("veri");
   $.ajax({
       type: "POST",
       url: "http://"+ip+":3030/users/logout",
-      data: { kid :kid },
+      data: { logid :logid },
       error: function(data){
         showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin logut");
       },
@@ -184,13 +187,14 @@ function logout(){
       }
     });
 }
-function creatShareText(kid,bodyText){
+function creatShareText(bodyText){
   var status ="";
+  var logid = getCookie("veri");
   $.ajax({
       type: "POST",
       async: false,
       url: "http://"+ip+":3030/news/CreateShare",
-      data: { kid :kid,type:0 , bodyText : bodyText},
+      data: { logid :logid,type:0 , bodyText : bodyText},
       error: function(data){
         console.error("Hata Sunucu Yanıt vermiyor");
       },
@@ -204,13 +208,14 @@ function creatShareText(kid,bodyText){
     });
     return status ;
 }
-function creatShareActivity(kid,bodyText,date,yer,time){
+function creatShareActivity(bodyText,date,yer,time){
+  var logid = getCookie("veri");
   var status ="";
   $.ajax({
       type: "POST",
       async: false,
       url: "http://"+ip+":3030/news/CreateShare",
-      data: { kid :kid ,type:1, date: date, bodyText : bodyText,yer:yer,time:time },
+      data: { logid :logid ,type:1, date: date, bodyText : bodyText,yer:yer,time:time },
       error: function(data){
         console.error("Hata Sunucu Yanıt vermiyor");
       },
@@ -237,7 +242,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     console.log(StatusBar);
 }
-
     $('#loaderIcon').hide("fade",500,function(){
       $(".page").css("opacity", "1");
       $('.page').show('fade');
@@ -383,11 +387,9 @@ app.controller('PageController',function(){
       $('.shareText').val("");
     }
     this.CreateTextShare = function(){
-      var kid = getCookie("veri");
       var bodyText = $('#ShareText').val();
-      if(kid){
         if(bodyText){
-          if(creatShareText(kid,bodyText)){
+          if(creatShareText(bodyText)){
             console.log("haber oluşturuldu");
             this.CloseSharePage();
             refleshNewsButton();
@@ -401,23 +403,15 @@ app.controller('PageController',function(){
           console.log("text Yok")
           showErrorMessage("Boş Metin","Gönderilecek Metni giriniz.");
         }
-      }
-      else{
-        console.log("kid yok");
-        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
-        this.CloseSharePage();
-      }
     }
     this.CreateActivityShare = function(){
-      var kid = getCookie("veri");
       var bodyText = $('#shareTextActivity').val();
       var date = $('#datepicker').val();
       var yer = $('#yer').val();
       //time
       var time = "00:00";
-      if(kid){
         if(bodyText){
-          if(creatShareActivity(kid,bodyText,date,yer,time)){
+          if(creatShareActivity(bodyText,date,yer,time)){
             console.log("haber oluşturuldu");
             this.CloseActivityPage();
             showSuccessMessage("Haber Oluşturuldu","Yazınız Paylaşıldı.");
@@ -431,12 +425,6 @@ app.controller('PageController',function(){
           console.log("text Yok")
           showErrorMessage("Boş Metin","Gönderilecek Metni giriniz.");
         }
-      }
-      else{
-        console.log("kid yok");
-        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin");
-        this.CloseSharePage();
-      }
     }
 
     this.OpenActivityPage = function(){
@@ -624,7 +612,7 @@ app.controller('ProfileController',function(){
     if(profileData){
       this.data = profileData ;
     }else{
-      console.error("bağlantı hatası var Tekrar giriş yapınız : " + kid);
+      console.error("bağlantı hatası var Tekrar giriş yapınız : ");
       this.data ="";
       logout();
     }
@@ -688,24 +676,37 @@ app.controller('newsController',function($compile,$scope){
     this.data = "";
     this.isLike = false;
     this.likeCount = 0 ;
+
     this.like = function(){
       if(this.isLike){
         this.isLike = false;
         this.data.likeCount--;
-        sendNewsData(this.data._id , -1);
+        sendNewsLikeData(this.data._id);
       }else{
         this.isLike = true;
         this.data.likeCount++;
-        sendNewsData(this.data._id , +1);
+        sendNewsLikeData(this.data._id);
       }
     }
-
     this.setData = function(data){
       this.data =data;
+      if(this.isUser(kid))
+        this.isLike = true;
+      else {
+        this.isLike = false;
+      }
       console.log(this.data.bodyText);
     }
-    this.msg = function(){
-      alert("hello");
+    this.isUser = function(kid){
+      var likeUser = this.data.likeUser;
+      for(var i = 0 ; i < likeUser.length ; i++)
+      {
+        if(likeUser[i] == kid)
+          {
+            return true;
+          }
+      }
+      return false ;
     }
   });
   app.directive('newsTextTable',function(){

@@ -2,7 +2,9 @@
 //Email girişi hatalı olduğunda geri dönme işlemi
 
 //var ip = "192.168.2.76";
-var ip = "10.82.15.100";
+//var ip = "10.82.15.100";
+var ip = "localhost";
+
 
 $(document).ready(function(){
   $('input').keypress(function(){

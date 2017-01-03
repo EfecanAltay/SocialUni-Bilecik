@@ -1,7 +1,9 @@
 $.getScript("js/CookieControl.js");
 
 //var ip = "192.168.2.76";
-var ip = "10.82.15.100";
+//var ip = "10.82.15.100";
+var ip = "localhost";
+
 
 $(document).ready(function(){
     if(getCookie("veri")){
@@ -41,7 +43,7 @@ function login(){
         }
       }
       if(data.status){
-        setCookie("veri",data.kid);
+        setCookie("veri",data.logid);
         sleep(1000);
         setWindowLocate('profile.html');
       }else

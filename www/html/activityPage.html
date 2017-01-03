@@ -15,7 +15,7 @@
       <label>Etinlik Adı :</label>
       <textarea  id="shareTextActivity" class="shareText" rows="1" cols="45" placeholder="Etkinlik adını gir.."></textarea>
       <label>Etinlik Tarihi :</label>
-      <input id="datepicker" type="text" required>
+      <input id="datepicker" type="text" required/>
       <label>Etinlik Yeri :</label>
       <input id="yer" type="text">
     </div>
@@ -25,7 +25,10 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script>
-  $( "#datepicker" ).datepicker();
+  //$( "#datepicker" ).datepicker();
+
+  $(document).ready(function(){ $("#datepicker").datepicker(); });
+
   $('.ui.dropdown').dropdown({
   onChange: function() {
    if($('.activity.text').text()[0] == "A")
