@@ -165,7 +165,50 @@ function setProfilPic(imageData){
     });
     return status ;
 }
-
+function getYorumsData(newsId){
+  var yorumsData ;
+  var logid = getCookie("veri");
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://"+ip+":3030/news/getYorums",
+      data: { newsId : newsId ,logid :logid },
+      error: function(data){
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin news");
+      },
+      success:function(data){
+        if(!data.status){
+          showErrorMessage("Bağlantı Hatası","Bağlantı yanlış");
+        }
+        else
+          yorumsData = data.yorumData ;
+      }
+    });
+    return yorumsData;
+}
+function sendYorumData(newsId,text){
+  var yorumData ;
+  var logid = getCookie("veri");
+  $.ajax({
+      type: "POST",
+      async: false,
+      url: "http://"+ip+":3030/news/createYorum",
+      data: { newsId : newsId ,logid :logid , text : text },
+      error: function(data){
+        showErrorMessage("Bağlantı Hatası","Bağlantınızı kontrol edin news");
+      },
+      success:function(data){
+        if(!data.status){
+          showErrorMessage("Bağlantı Hatası","Bağlantı yanlış");
+        }
+        else{
+          yorumData = data.yorumData ;
+          console.log(yorumData);
+        }
+      }
+    });
+    return yorumData;
+}
 function logout(){
   var logid = getCookie("veri");
   $.ajax({
@@ -323,6 +366,7 @@ app.controller('PageController',function(){
     this.activityPanelKey = false;
 
     this.yorumPanelData = "";
+    this.newsID = "";
 
     this.initFunction = function(){
       leftMenu = false;
@@ -454,23 +498,36 @@ app.controller('PageController',function(){
 
     this.CloseYorumPage = function (){
       $('#yorumPanel').text('');
+      $('#yorumText').val('');
       this.yorumPanelKey = false;
       this.yorumPanelData = "";
     }
-    this.OpenYorumPage = function (data){
+    this.OpenYorumPage = function (newsId){
       if(this.yorumPanelKey == false){
         $('#yorumPanel').text('');
-        this.yorumPanelData = data;
         this.yorumPanelKey = true ;
+        this.newsId = newsId;
+        this.yorumPanelData = getYorumsData(newsId);
+        //burda hata
+        console.log(this.yorumPanelData.yorums.JSON);
+        this.showYorum(this.yorumPanelData.yorums);
       }
+    }
+    this.sendYorum = function(){
+      var text = $('#yorumText').val();
+      if(text != '' && this.newsId != ''){
+        console.log("newsId :" + this.newsId +",text :" + text);
+        this.yorumPanelData = sendYorumData(this.newsId,text);
+      }
+      $('#yorumText').val('');
     }
     this.showYorum = function(data){
       $('#yorumPanel').text('');
       var i ;
       if(data){
-        for(i = 0 ; i < data.length ; i++){
+        for(i = data.length-1 ; i >= 0  ; i--){
           var yorum = data[i];
-          if(yorum.your){
+          if(yorum.author == kid){
             $('#yorumPanel').append('<div class="msgTable me"><div class="msgProfName">'+yorum.user.name+'</div><div class="msgBody">'+yorum.text.toString() +'</div></div>');
           }else{
             $('#yorumPanel').append('<div class="msgTable"><img class="msgPhoto" src="'+yorum.user.profImg+'" ></img><div class="msgProfName">'+yorum.user.name+'</div><div class="msgBody">'+ yorum.text.toString() +'</div></div>');
