@@ -2,7 +2,8 @@ $.getScript("js/CookieControl.js");
 
 //var ip = "192.168.2.76";
 //var ip = "10.82.15.100";
-var ip = "localhost";
+var ip = "192.168.2.73";
+//var ip = "localhost";
 
 
 $(document).ready(function(){

@@ -1,18 +1,23 @@
 /* Notlar
-HammerJS reflesh bir bak..
+->HammerJS reflesh bir bak..
+->set Profil Texture 446. satırda hata düzeltilecek base64 bit dönüşümü yapılıp json veri gönderilecek
 */
 
-//set Profil Texture 446. satırda hata düzeltilecek base64 bit dönüşümü yapılıp json veri gönderilecek
-$.getScript("js/CookieControl.js");
+
+$.getScript("js/CookieControl.js",function(){
+  logid = getCookie("veri");
+});
 $.getScript("js/ImagetoBase64Data.js");
 
-
+var ip = "192.168.2.73";
 //var ip = "10.82.15.100";
-var ip = "localhost";
+//var ip = "localhost";
+
 var kid = "";
+var logid ;
 
 function refleshNewsButton(){
-  var scope = angular.element(document.getElementById("refleshButton")).scope();
+  var scope = angular.element(document.getElementById("refleshNewsButton")).scope();
     $('#scrolltableNews').text('');
     scope.data = getNews();
     for(var i = scope.data.length-1 ; i >= 0 ; i--)
@@ -23,7 +28,7 @@ function refleshNewsButton(){
 }
 
 function refleshFriendsButton(){
-  var scope = angular.element(document.getElementById("friendlist")).scope();
+  var scope = angular.element(document.getElementById("refleshFriendButton")).scope();
   $('#scrolltableFriends').html('');
     scope.friendsData = getFriends();
     console.log(scope.friendsData[0]);
@@ -51,7 +56,7 @@ function readURL(input){
 }
 
 function getProfilData(){
-  var logid = getCookie("veri");
+  //var logid = getCookie("veri");
   var profileData ;
   $.ajax({
       type: "POST",
@@ -693,7 +698,7 @@ app.directive("fileread", [function () {
 app.controller('friendListController',function($compile,$scope){
   this.friendsData = "";
 
-  this.addFriendTable = function(data){
+  $scope.addFriendTable = function(data){
     Jdata = JSON.stringify(data);
     $('#scrolltableFriends').append($compile("<user-table ng-controller='friendTableController as ftable' ng-init='ftable.setData("+ Jdata +")'><user-table/>")($scope));
   };

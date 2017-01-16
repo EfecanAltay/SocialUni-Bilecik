@@ -13,8 +13,8 @@
   </div>
   <div class="yorumPanelFooter">
     <div class="ui fluid  action input">
-      <input type="text" placeholder="Yorum yap">
-      <div class="ui green button">Gönder</div>
+      <input id="yorumText" type="text" placeholder="Yorum yap">
+      <div class="ui green button" ng-click="page.sendYorum()">Gönder</div>
     </div></br>
     <button class="ui fluid button" ng-click="page.CloseYorumPage()">Geri</button>
   </div>

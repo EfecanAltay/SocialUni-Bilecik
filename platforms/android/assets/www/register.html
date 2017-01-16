@@ -46,28 +46,63 @@
         <ul>
           <li>
             <form class="ui form">
-              <div class="field">
-                Kullanıcı adı
-                <input id="kname" name="kname" type="text" placeholder="Kullanıcı Adı.." required/>
-              </div>
-                Şifre
-              <div class="field">
-                <input id="pass" name="pass" type="password" placeholder="Şifre.." required/>
-              </div>
-                Şifre Tekrarı
-              <div class="field">
-                <input id="pass2" name="pass2" type="password" placeholder="Şifre Tekrarı.." required/>
-              </div>
-                Email
-              <div class="field">
-                <input id="mail" name="mail" type="email" placeholder="Email.." required/>
-              </div>
-              <div class="field" Align="center">
-                <button class="ui fluid green button" onclick="register()" >Kaydol</button>
-              </div>
-            <div id="errorText" style="color:red">
-
-            </div>
+              <span id = "page1">
+                <div class="field">
+                  <span style="color:white;">Kullanıcı adı</span>
+                  <input id="kname" name="kname" type="text" placeholder="Kullanıcı Adı.." required/>
+                </div>
+                  <span style="color:white;">Şifre</span>
+                <div class="field">
+                  <input id="pass" name="pass" type="password" placeholder="Şifre.." required/>
+                </div>
+                  <span style="color:white;">Şifre Tekrarı</span>
+                <div class="field">
+                  <input id="pass2" name="pass2" type="password" placeholder="Şifre Tekrarı.." required/>
+                </div>
+                  <span style="color:white;">Email</span>
+                <div class="field">
+                  <input id="mail" name="mail" type="email" placeholder="Email.." required/>
+                </div>
+                <br>  <br>
+                <div class="field" Align="center">
+                  <button id="tryButton" class="ui fluid gray button" onclick="TryRegister()" >Dene</button>
+                </div>
+                <div id="nextButton" class="field" Align="center">
+                  <button  class="ui fluid blue button" onclick="Next()" >ileri</button>
+                </div>
+              </span>
+              </form>
+              <form class="ui form">
+              <span id="page2">
+                <div class="field">
+                  <span style="color:white;">İsim :</span>
+                  <input id="kname" name="kname" type="text" placeholder="İsim.." required/>
+                </div>
+                  <span style="color:white;">Soyisim :</span>
+                <div class="field">
+                  <input id="ksurname" name="ksurname" type="text" placeholder="Soyisim.." required/>
+                </div>
+                <div class="field">
+                  <span style="color:white;">Fakülte :</span>
+                  <select id="fakülte" class="ui simple dropdown" >
+                    <option value="">Fakülte Seç...</option>
+                    <option value="0">Mühendislik Fakültesi</option>
+                    <option value="1">İktisadi ve İdari Bilimler Fakültesi</option>
+                    <option value="2">Fen Edebiyat Fakültesi</option>
+                    <option value="3">Güzel Sanatlar ve Tasarım Fakültesi</option>
+                    <option value="4">İslami İlimler Fakültesi</option>
+                    <option value="5">Ziraat ve Doğa Fakültesi</option>
+                  </select>
+                </div>
+                <div id="bolumFielt" class="field">
+                  <span  style="color:white;">Bölüm :</span>
+                  <select id="bolum" class="ui simple dropdown" ></select>
+                </div>
+                <div id="registerButton" class="field" Align="center">
+                  <button  class="ui fluid green button" onclick="registerLogin()" >Kaydol</button>
+                </div>
+              </span>
+            <div id="errorText" style="color:red">  </div>
           </form>
             <button id="backBtn" class="ui button" onclick="setWindowLocate('index.html')">Geri</button>
           </li>

@@ -256,7 +256,7 @@
   padding: 2%;
   font-size: 20px;
 }
-#refleshButton{
+.refleshButton{
   position: fixed;
   bottom: 80px;
   right: 8px;
@@ -269,7 +269,7 @@
   z-index: 999;
   border:2px solid black;
 }
-#refleshButton:active{
+.refleshButton:active{
   width: 35px;
   height: 35px;
   padding: 3px;
